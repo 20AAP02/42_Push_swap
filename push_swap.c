@@ -71,6 +71,7 @@ void ft_lstadd_front_d_lst(d_list **lst, d_list *new)
 	if (lst && new)
 	{
 		new->next = *lst;
+		new->past = (*lst)->past;
 		(*lst)->past = new;
 		*lst = new;
 	}
@@ -79,12 +80,14 @@ void ft_lstadd_front_d_lst(d_list **lst, d_list *new)
 // ft_lstsize_d_lst
 int ft_lstsize_d_lst(d_list *lst)
 {
+	d_list *mem;
 	int	i;
 
+	mem = lst;
 	i = 0;
 	if (!lst)
 		return (0);
-	while (lst)
+	while (lst && lst->next != mem)
 	{
 		lst = lst->next;
 		i++;
@@ -95,9 +98,12 @@ int ft_lstsize_d_lst(d_list *lst)
 // ft_lstlast_d_lst
 d_list *ft_lstlast_d_lst(d_list *lst)
 {
+	d_list *mem;
+
+	mem = lst;
 	if (!lst)
 		return (NULL);
-	while (lst->next)
+	while (lst->next && lst->next != mem)
 		lst = lst->next;
 	return (lst);
 }
@@ -106,6 +112,7 @@ d_list *ft_lstlast_d_lst(d_list *lst)
 void ft_lstadd_back_d_lst(d_list **lst, d_list *new)
 {
 	d_list	*temp;
+	d_list	*mem;
 
 	if (!lst || !new)
 		return ;
@@ -115,8 +122,10 @@ void ft_lstadd_back_d_lst(d_list **lst, d_list *new)
 		return ;
 	}
 	temp = ft_lstlast_d_lst(*lst);
+	mem = temp->next;
 	temp->next = new;
 	new->past = temp;
+	new->next = mem;
 }
 
 // ft_lstdelone_d_lst
@@ -132,7 +141,10 @@ void ft_lstdelone_d_lst(d_list *lst, void (*del)(void*))
 void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
 {
 	d_list *ptr;
+	d_list *last;
 
+	last = ft_lstlast_d_lst(*lst);
+	last->next = NULL;
 	if (lst)
 	{
 		while (*lst)
@@ -234,20 +246,55 @@ void ft_rr(int *stack_a, int *stack_b, int size)
 // General functions
 
 // function to collect the parameters of the stack_a
-d_list *ft_collect_integers(int argc, char **argv)
+d_list **ft_collect_integers(int argc, char **argv)
 {
-	// TODO
+	d_list **stack_a;
+	int *value;
+	int i;
+
+	value = malloc(sizeof(int));
+	*value = ft_atoi(argv[1]);
+	*stack_a = NULL;
+	ft_lstadd_back_d_lst(stack_a, ft_lstnew_d_lst(value));
+	i = 2;
+	while (i < argc)
+	{
+		value = malloc(sizeof(int));
+		*value = ft_atoi(argv[i]);
+		ft_lstadd_back_d_lst(stack_a, ft_lstnew_d_lst(value));
+		i++;
+	}
+	return (stack_a);
+}
+
+// function to print linked list (uses printf)
+void ft_print_linked_list(d_list *stack_a)
+{
+	d_list *mem;
+
+	mem = stack_a;
+	while (stack_a->next != mem)
+	{
+		printf("%i\n", *(stack_a->content));
+		stack_a = stack_a->next;
+	}
+	printf("%i\n", *(stack_a->content));
 }
 
 int main (int argc, char **argv)
 {
-	d_list *head;
+	d_list **stack_a;
 
 	// Checking for parameters errors
 	// TODO
 
-	// Passing stack_a parameters to array
-	head = ft_collect_integers (argc, argv);
+	// Passing stack_a parameters to double linked list
+	stack_a = ft_collect_integers(argc, argv);
+	ft_lstlast_d_lst(*stack_a)->next = *stack_a;
+
+	// testing function to print double linked list
+	ft_print_linked_list(*stack_a);
+	ft_lstclear_d_lst(stack_a, free);
 
 	return (0);
 }
