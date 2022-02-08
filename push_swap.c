@@ -68,10 +68,17 @@ d_list *ft_lstnew_d_lst(void *content)
 // ft_lstadd_front_d_lst
 void ft_lstadd_front_d_lst(d_list **lst, d_list *new)
 {
-	if (lst && new)
+	if (!*lst)
+	{
+		new->next = new;
+		new->past = new;
+		*lst = new;
+	}
+	else if (lst && new)
 	{
 		new->next = *lst;
 		new->past = (*lst)->past;
+		(*lst)->past->next = new;
 		(*lst)->past = new;
 		*lst = new;
 	}
@@ -92,7 +99,7 @@ int ft_lstsize_d_lst(d_list *lst)
 		lst = lst->next;
 		i++;
 	}
-	return (i);
+	return (i + 1);
 }
 
 // ft_lstlast_d_lst
@@ -161,82 +168,57 @@ void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
 
 // Operations functions
 
-void ft_sa(int *stack)
+void ft_sa(d_list *stack)
 {
-	int copy;
+	int mem;
 
-	copy = stack[0];
-	stack[0] = stack[1];
-	stack[1] = copy;
+	mem = *(stack->content);
+	*(stack->content) = *(stack->next->content);
+	*(stack->next->content) = mem;
 }
 
-void ft_sb(int *stack)
+void ft_sb(d_list *stack)
 {
-	int copy;
+	int mem;
 
-	copy = stack[0];
-	stack[0] = stack[1];
-	stack[1] = copy;
+	mem = *(stack->content);
+	*(stack->content) = *(stack->next->content);
+	*(stack->next->content) = mem;
 }
 
-void ft_ss(int *stack_a, int *stack_b)
+void ft_ss(d_list *stack_a, d_list *stack_b)
 {
 	ft_sa(stack_a);
 	ft_sb(stack_b);
 }
 
-void ft_pa(int *stack_a, int *stack_b, int size_a, int size_b)
+void ft_pa(d_list **stack_a, d_list **stack_b)
 {
-	stack_a[0] = stack_b[0];
-}
+	d_list *mem;
 
-void ft_pb(int *stack_a, int *stack_b)
-{
-	stack_b[0] = stack_a[0];
-}
-
-void ft_ra(int *stack, int size)
-{
-	int i;
-	int copy_1;
-	int copy_2;
-
-	i = size - 1;
-	copy_2 = stack[i];
-	while (i)
+	if (!*stack_b)
+		return ;
+	if (ft_lstsize_d_lst(*stack_b) > 1)
 	{
-		copy_1 = stack[i - 1];
-		stack[i - 1] = copy_2;
-		copy_2 = copy_1;
-		i--;
+		(*stack_b)->next->past = (*stack_b)->past;
+		(*stack_b)->past->next = (*stack_b)->next;
+		ft_lstadd_front_d_lst(stack_a, *stack_b);
 	}
-	stack[size - 1] = copy_2;
-}
-
-void ft_rb(int *stack, int size)
-{
-	int i;
-	int copy_1;
-	int copy_2;
-
-	i = size - 1;
-	copy_2 = stack[i];
-	while (i)
+	else
 	{
-		copy_1 = stack[i - 1];
-		stack[i - 1] = copy_2;
-		copy_2 = copy_1;
-		i--;
+		ft_lstadd_front_d_lst(stack_a, *stack_b);
+		*stack_b = NULL;
 	}
-	stack[size - 1] = copy_2;
 }
+/*
+void ft_pb(int *stack_a, int *stack_b);
 
-void ft_rr(int *stack_a, int *stack_b, int size)
-{
-	ft_ra(stack_a, size);
-	ft_rb(stack_b, size);
-}
+void ft_ra(int *stack, int size);
 
+void ft_rb(int *stack, int size);
+
+void ft_rr(int *stack_a, int *stack_b, int size);
+*/
 // Checker function (checks if stack_a is sorted)
 // TODO
 
@@ -274,7 +256,7 @@ void ft_print_linked_list(d_list *stack_a)
 	d_list *mem;
 
 	mem = stack_a;
-	while (stack_a->next != mem)
+	while (stack_a->next != mem && stack_a)
 	{
 		printf("%i\n", *(stack_a->content));
 		stack_a = stack_a->next;
@@ -285,6 +267,11 @@ void ft_print_linked_list(d_list *stack_a)
 int main (int argc, char **argv)
 {
 	d_list **stack_a;
+	d_list **stack_b;
+	int test = 15;
+
+	stack_b = malloc(sizeof(d_list*));
+	*stack_b = ft_lstnew_d_lst(&test);
 
 	// Checking for parameters errors
 	// TODO
@@ -294,7 +281,16 @@ int main (int argc, char **argv)
 	ft_lstlast_d_lst(*stack_a)->next = *stack_a;
 
 	// testing function to print double linked list
+	ft_print_linked_list(*stack_b);
+	printf("-------------\n");
 	ft_print_linked_list(*stack_a);
+	printf("-------------\n");
+	ft_pa(stack_a, stack_b);
+	ft_print_linked_list(*stack_b);
+	printf("-------------\n");
+	ft_print_linked_list(*stack_a);
+	printf("-------------\n");
+	printf("%i\n", ft_lstsize_d_lst(*stack_a));
 	ft_lstclear_d_lst(stack_a, free);
 	free(stack_a);
 
