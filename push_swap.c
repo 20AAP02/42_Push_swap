@@ -254,6 +254,7 @@ d_list **ft_collect_integers(int argc, char **argv)
 
 	value = malloc(sizeof(int));
 	*value = ft_atoi(argv[1]);
+	stack_a = malloc(sizeof(d_list*));
 	*stack_a = NULL;
 	ft_lstadd_back_d_lst(stack_a, ft_lstnew_d_lst(value));
 	i = 2;
@@ -295,6 +296,7 @@ int main (int argc, char **argv)
 	// testing function to print double linked list
 	ft_print_linked_list(*stack_a);
 	ft_lstclear_d_lst(stack_a, free);
+	free(stack_a);
 
 	return (0);
 }
