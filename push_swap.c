@@ -23,10 +23,11 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int ft_atoi(const char *str)
+// ft_atoi but with doubles
+double ft_atoi(const char *str)
 {
-	int number;
-	int sign;
+	double number;
+	double sign;
 
 	sign = 1;
 	number = 0;
@@ -68,18 +69,11 @@ d_list *ft_lstnew_d_lst(void *content)
 // ft_lstadd_front_d_lst
 void ft_lstadd_front_d_lst(d_list **lst, d_list *new)
 {
-	if (!*lst)
-	{
-		new->next = new;
-		new->past = new;
-		*lst = new;
-	}
-	else if (lst && new)
+	if (lst && new)
 	{
 		new->next = *lst;
-		new->past = (*lst)->past;
-		(*lst)->past->next = new;
-		(*lst)->past = new;
+		if (*lst)
+			(*lst)->past = new;
 		*lst = new;
 	}
 }
@@ -87,30 +81,25 @@ void ft_lstadd_front_d_lst(d_list **lst, d_list *new)
 // ft_lstsize_d_lst
 int ft_lstsize_d_lst(d_list *lst)
 {
-	d_list *mem;
 	int	i;
 
-	mem = lst;
 	i = 0;
 	if (!lst)
 		return (0);
-	while (lst && lst->next != mem)
+	while (lst)
 	{
 		lst = lst->next;
 		i++;
 	}
-	return (i + 1);
+	return (i);
 }
 
 // ft_lstlast_d_lst
 d_list *ft_lstlast_d_lst(d_list *lst)
 {
-	d_list *mem;
-
-	mem = lst;
 	if (!lst)
 		return (NULL);
-	while (lst->next && lst->next != mem)
+	while (lst->next)
 		lst = lst->next;
 	return (lst);
 }
@@ -119,7 +108,6 @@ d_list *ft_lstlast_d_lst(d_list *lst)
 void ft_lstadd_back_d_lst(d_list **lst, d_list *new)
 {
 	d_list	*temp;
-	d_list	*mem;
 
 	if (!lst || !new)
 		return ;
@@ -129,10 +117,9 @@ void ft_lstadd_back_d_lst(d_list **lst, d_list *new)
 		return ;
 	}
 	temp = ft_lstlast_d_lst(*lst);
-	mem = temp->next;
 	temp->next = new;
 	new->past = temp;
-	new->next = mem;
+	new->next = NULL;
 }
 
 // ft_lstdelone_d_lst
@@ -148,10 +135,7 @@ void ft_lstdelone_d_lst(d_list *lst, void (*del)(void*))
 void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
 {
 	d_list *ptr;
-	d_list *last;
 
-	last = ft_lstlast_d_lst(*lst);
-	last->next = NULL;
 	if (lst)
 	{
 		while (*lst)
@@ -170,20 +154,24 @@ void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
 
 void ft_sa(d_list *stack)
 {
-	int mem;
+	int value;
 
-	mem = *(stack->content);
-	*(stack->content) = *(stack->next->content);
-	*(stack->next->content) = mem;
+	if (ft_lstsize_d_lst(stack) < 2)
+		return ;
+	value = *(stack->next->content);
+	*(stack->next->content) = *(stack->content);
+	*(stack->content) = value;
 }
 
 void ft_sb(d_list *stack)
 {
-	int mem;
+	int value;
 
-	mem = *(stack->content);
-	*(stack->content) = *(stack->next->content);
-	*(stack->next->content) = mem;
+	if (ft_lstsize_d_lst(stack) < 2)
+		return ;
+	value = *(stack->next->content);
+	*(stack->next->content) = *(stack->content);
+	*(stack->content) = value;
 }
 
 void ft_ss(d_list *stack_a, d_list *stack_b)
@@ -196,34 +184,172 @@ void ft_pa(d_list **stack_a, d_list **stack_b)
 {
 	d_list *mem;
 
-	if (!*stack_b)
+	if (ft_lstsize_d_lst(*stack_b) < 1)
 		return ;
-	if (ft_lstsize_d_lst(*stack_b) > 1)
-	{
-		(*stack_b)->next->past = (*stack_b)->past;
-		(*stack_b)->past->next = (*stack_b)->next;
-		ft_lstadd_front_d_lst(stack_a, *stack_b);
-	}
-	else
-	{
-		ft_lstadd_front_d_lst(stack_a, *stack_b);
-		*stack_b = NULL;
-	}
+	mem = (*stack_b)->next;
+	ft_lstadd_front_d_lst(stack_a, *stack_b);
+	*stack_b = mem;
 }
-/*
-void ft_pb(int *stack_a, int *stack_b);
 
-void ft_ra(int *stack, int size);
+void ft_pb(d_list **stack_a, d_list **stack_b)
+{
+	d_list *mem;
 
-void ft_rb(int *stack, int size);
+	if (ft_lstsize_d_lst(*stack_a) < 1)
+		return ;
+	mem = (*stack_a)->next;
+	ft_lstadd_front_d_lst(stack_b, *stack_a);
+	*stack_a = mem;
+}
 
-void ft_rr(int *stack_a, int *stack_b, int size);
-*/
+void ft_ra(d_list **stack)
+{
+	d_list *mem;
+	int value_c2;
+	int value_c1;
+
+	if (ft_lstsize_d_lst(*stack) < 2)
+		return ;
+	(*stack)->past = NULL;
+	mem = ft_lstlast_d_lst(*stack);
+	value_c2 = *(mem->content);
+	while (mem)
+	{
+		if (!(mem->past))
+			break ;
+		value_c1 = *(mem->past->content);
+		*(mem->past->content) = value_c2;
+		value_c2 = value_c1;
+		mem = mem->past;
+	}
+	mem = ft_lstlast_d_lst(*stack);
+	*(mem->content) = value_c2;
+}
+
+void ft_rb(d_list **stack)
+{
+	d_list *mem;
+	int value_c2;
+	int value_c1;
+
+	if (ft_lstsize_d_lst(*stack) < 2)
+		return ;
+	(*stack)->past = NULL;
+	mem = ft_lstlast_d_lst(*stack);
+	value_c2 = *(mem->content);
+	while (mem)
+	{
+		if (!(mem->past))
+			break ;
+		value_c1 = *(mem->past->content);
+		*(mem->past->content) = value_c2;
+		value_c2 = value_c1;
+		mem = mem->past;
+	}
+	mem = ft_lstlast_d_lst(*stack);
+	*(mem->content) = value_c2;
+}
+
+void ft_rr(d_list **stack_a, d_list **stack_b)
+{
+	ft_ra(stack_a);
+	ft_rb(stack_b);
+}
+
+void ft_rra(d_list **stack)
+{
+	d_list *mem;
+	int value_c2;
+	int value_c1;
+
+	if (ft_lstsize_d_lst(*stack) < 2)
+		return ;
+	(*stack)->past = NULL;
+	mem = *stack;
+	value_c2 = *(mem->content);
+	while (mem)
+	{
+		if (!(mem->next))
+			break ;
+		value_c1 = *(mem->next->content);
+		*(mem->next->content) = value_c2;
+		value_c2 = value_c1;
+		mem = mem->next;
+	}
+	*((*stack)->content) = value_c2;
+}
+
+void ft_rrb(d_list **stack)
+{
+	d_list *mem;
+	int value_c2;
+	int value_c1;
+
+	if (ft_lstsize_d_lst(*stack) < 2)
+		return ;
+	(*stack)->past = NULL;
+	mem = *stack;
+	value_c2 = *(mem->content);
+	while (mem)
+	{
+		if (!(mem->next))
+			break ;
+		value_c1 = *(mem->next->content);
+		*(mem->next->content) = value_c2;
+		value_c2 = value_c1;
+		mem = mem->next;
+	}
+	*((*stack)->content) = value_c2;
+}
+
+void ft_rrr(d_list **stack_a, d_list **stack_b)
+{
+	ft_rra(stack_a);
+	ft_rrb(stack_b);
+}
+
 // Checker function (checks if stack_a is sorted)
 // TODO
 
-// Function to check if parameters have no errors
-// TODO
+// Function to check if parameters have no errors (too many lines)
+int ft_check_parameters(int argc, char **argv)
+{
+	double *arr;
+	int i;
+	int j;
+
+	if (argc > 501)
+		return (3);
+	i = 0;
+	while (++i < argc)
+	{
+		j = -1;
+		while(argv[i][++j])
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (1);
+		j = -1;
+		while(argv[i][++j])
+			if (j > 9)
+				return (2);
+	}
+	arr = malloc(sizeof(double) * (argc - 1));
+	i = 0;
+	while (++i < argc)
+	{
+		arr[i - 1] = ft_atoi(argv[i]);
+		if (arr[i - 1] > 2147483647 || arr[i - 1] < -2147483648)
+			return (2);
+	}
+	i = -1;
+	while (++i < (argc - 1))
+	{
+		j = -1;
+		while (++j < (argc - 1))
+			if (arr[i] == arr[j] && i != j)
+				return (4);
+	}
+	return (0);
+}
 
 // General functions
 
@@ -234,18 +360,14 @@ d_list **ft_collect_integers(int argc, char **argv)
 	int *value;
 	int i;
 
-	value = malloc(sizeof(int));
-	*value = ft_atoi(argv[1]);
 	stack_a = malloc(sizeof(d_list*));
 	*stack_a = NULL;
-	ft_lstadd_back_d_lst(stack_a, ft_lstnew_d_lst(value));
-	i = 2;
+	i = 1;
 	while (i < argc)
 	{
 		value = malloc(sizeof(int));
-		*value = ft_atoi(argv[i]);
+		*value = ft_atoi(argv[i++]);
 		ft_lstadd_back_d_lst(stack_a, ft_lstnew_d_lst(value));
-		i++;
 	}
 	return (stack_a);
 }
@@ -256,43 +378,43 @@ void ft_print_linked_list(d_list *stack_a)
 	d_list *mem;
 
 	mem = stack_a;
-	while (stack_a->next != mem && stack_a)
+	while (stack_a)
 	{
 		printf("%i\n", *(stack_a->content));
 		stack_a = stack_a->next;
 	}
-	printf("%i\n", *(stack_a->content));
 }
 
 int main (int argc, char **argv)
 {
 	d_list **stack_a;
 	d_list **stack_b;
-	int test = 15;
+	int check_param;
 
-	stack_b = malloc(sizeof(d_list*));
-	*stack_b = ft_lstnew_d_lst(&test);
-
-	// Checking for parameters errors
-	// TODO
+	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
+	if (ft_check_parameters(argc, argv))
+	{
+		printf("error\n");
+		return (1);
+	}
 
 	// Passing stack_a parameters to double linked list
 	stack_a = ft_collect_integers(argc, argv);
-	ft_lstlast_d_lst(*stack_a)->next = *stack_a;
+
+	// Creating stack_b
+	stack_b = malloc(sizeof(d_list*));
+	*stack_b = NULL;
 
 	// testing function to print double linked list
-	ft_print_linked_list(*stack_b);
-	printf("-------------\n");
 	ft_print_linked_list(*stack_a);
 	printf("-------------\n");
-	ft_pa(stack_a, stack_b);
 	ft_print_linked_list(*stack_b);
-	printf("-------------\n");
-	ft_print_linked_list(*stack_a);
-	printf("-------------\n");
-	printf("%i\n", ft_lstsize_d_lst(*stack_a));
+
+	// free lists
 	ft_lstclear_d_lst(stack_a, free);
 	free(stack_a);
+	ft_lstclear_d_lst(stack_b, free);
+	free(stack_b);
 
 	return (0);
 }
