@@ -48,6 +48,7 @@ double ft_atoi(const char *str)
 	return (number * sign);
 }
 
+
 // PUSH_SWAP FUNCTIONS
 
 // List funcions
@@ -111,28 +112,17 @@ void ft_lstadd_back_d_lst(d_list **lst, d_list *new)
 
 	if (!lst || !new)
 		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
 	temp = ft_lstlast_d_lst(*lst);
-	temp->next = new;
+	if (temp)
+		temp->next = new;
+	else
+		*lst = new;
 	new->past = temp;
 	new->next = NULL;
 }
 
-// ft_lstdelone_d_lst
-void ft_lstdelone_d_lst(d_list *lst, void (*del)(void*))
-{
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
-}
-
 // ft_lstclear_d_lst
-void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
+void ft_lstclear_d_lst(d_list **lst)
 {
 	d_list *ptr;
 
@@ -140,12 +130,13 @@ void ft_lstclear_d_lst(d_list **lst, void (*del)(void*))
 	{
 		while (*lst)
 		{
-			ptr = (*lst)-> next;
-			del((*lst)-> content);
+			ptr = (*lst)->next;
+			free((*lst)->content);
 			free(*lst);
 			*lst = ptr;
 		}
 	}
+	free(lst);
 }
 
 
@@ -309,7 +300,18 @@ void ft_rrr(d_list **stack_a, d_list **stack_b)
 }
 
 // Checker function (checks if stack_a is sorted)
-// TODO
+int ft_list_sorted(d_list *stack)
+{
+	if (!stack)
+		return (2);
+	while (stack->next)
+	{
+		if (*(stack->content) > *(stack->next->content))
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
 
 // Function to check if parameters have no errors (too many lines)
 int ft_check_parameters(int argc, char **argv)
@@ -325,7 +327,7 @@ int ft_check_parameters(int argc, char **argv)
 	{
 		j = -1;
 		while(argv[i][++j])
-			if (argv[i][j] < '0' || argv[i][j] > '9')
+			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != '-')
 				return (1);
 		j = -1;
 		while(argv[i][++j])
@@ -348,10 +350,9 @@ int ft_check_parameters(int argc, char **argv)
 			if (arr[i] == arr[j] && i != j)
 				return (4);
 	}
+	free(arr);
 	return (0);
 }
-
-// General functions
 
 // function to collect the parameters of the stack_a
 d_list **ft_collect_integers(int argc, char **argv)
@@ -410,11 +411,12 @@ int main (int argc, char **argv)
 	printf("-------------\n");
 	ft_print_linked_list(*stack_b);
 
+	// check if list is sorted
+	printf("%i\n", ft_list_sorted(*stack_a));
+
 	// free lists
-	ft_lstclear_d_lst(stack_a, free);
-	free(stack_a);
-	ft_lstclear_d_lst(stack_b, free);
-	free(stack_b);
+	ft_lstclear_d_lst(stack_a);
+	ft_lstclear_d_lst(stack_b);
 
 	return (0);
 }
