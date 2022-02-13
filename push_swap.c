@@ -386,6 +386,45 @@ void ft_print_linked_list(d_list *stack_a)
 	}
 }
 
+// Sort functions
+int ft_sort_stack0(d_list **stack_a, d_list **stack_b)
+{
+	d_list *start_a;
+	d_list *start_b;
+	int i;
+
+	while (ft_lstsize_d_lst(*stack_a) > 1)
+	{
+		start_a = *stack_a;
+		start_b = *stack_b;
+		i = 0;
+		while (i < ft_lstsize_d_lst(*stack_a) - 1)
+		{
+			if (*(start_a->content) < *(start_a->next->content))
+			{
+				ft_sa(start_a);
+				printf("sa\n");
+			}
+			ft_ra(stack_a);
+			printf("ra\n");
+			i++;
+		}
+		ft_pb(stack_a, stack_b);
+		printf("pb\n");
+	}
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_pa(stack_a, stack_b);
+		printf("pa\n");
+	}
+	return (1);
+}
+
+int ft_sort_stack1(d_list **stack_a, d_list **stack_b)
+{
+	return (1);
+}
+
 int main (int argc, char **argv)
 {
 	d_list **stack_a;
@@ -405,15 +444,36 @@ int main (int argc, char **argv)
 	// Creating stack_b
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
-
-	// testing function to print double linked list
+	/*
+	// testing function to print double linked list at start
+	printf("-------------\nStack A Start\n");
 	ft_print_linked_list(*stack_a);
-	printf("-------------\n");
+	printf("-------------\nStack B Start\n");
 	ft_print_linked_list(*stack_b);
 
-	// check if list is sorted
+	// check if stack_a is sorted at start
+	printf("-------------\nStack_A sorted: ");
 	printf("%i\n", ft_list_sorted(*stack_a));
 
+
+	// Sorting
+	printf("-------------------------\n");
+	*/
+	ft_sort_stack1(stack_a, stack_b);
+	/*
+	printf("-------------------------\n");
+
+
+	// testing function to print double linked list at end
+	printf("-------------\nStack A End\n");
+	ft_print_linked_list(*stack_a);
+	printf("-------------\nStack B End\n");
+	ft_print_linked_list(*stack_b);
+
+	// check if stack_a is sorted at end
+	printf("-------------\nStack_A sorted: ");
+	printf("%i\n", ft_list_sorted(*stack_a));
+	*/
 	// free lists
 	ft_lstclear_d_lst(stack_a);
 	ft_lstclear_d_lst(stack_b);
