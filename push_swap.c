@@ -546,7 +546,7 @@ int main (int argc, char **argv)
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
 	
-	/*
+	///*
 	// testing function to print double linked list at start
 	printf("-------------\nStack A Start\n");
 	ft_print_linked_list(*stack_a);
@@ -560,7 +560,7 @@ int main (int argc, char **argv)
 
 	// Sorting
 	printf("\n-------------------------\n\n");
-	*/
+	//*/
 	ft_sort_stack0(stack_a, stack_b);
 
 	/*
