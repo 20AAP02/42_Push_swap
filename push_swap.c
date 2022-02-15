@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> 
@@ -48,6 +49,86 @@ double ft_atoi(const char *str)
 	return (number * sign);
 }
 
+// ft_split
+
+static int	ft_issep(char s, char c)
+{
+	return (s == c || s == '\0');
+}
+
+static int	countwords(char const *s, char c)
+{
+	int	index;
+	int	words;
+
+	index = 0;
+	words = 0;
+	while (s[index] != '\0')
+	{
+		if (ft_issep(s[index], c) == 0 && ft_issep(s[index + 1], c) == 1)
+			words++;
+		index++;
+	}
+	return (words);
+}
+
+static void	ft_cpywords(char *dest, char *src, char c)
+{
+	int	index;
+
+	index = 0;
+	while (ft_issep(src[index], c) == 0)
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+}
+
+static void	do_the_split(char **matriz, char *s, char c)
+{
+	int		i;
+	int		j;
+	int		word;
+	char	*str;
+
+	i = 0;
+	word = 0;
+	str = s;
+	while (s[i] != '\0')
+	{
+		if (ft_issep(s[i], c) == 1)
+			i++;
+		else
+		{
+			j = 0;
+			while (ft_issep(str[i + j], c) == 0)
+				j++;
+			matriz[word] = malloc((j + 1) * sizeof(char));
+			if (!matriz[word])
+				return ;
+			ft_cpywords(matriz[word], str + i, c);
+			i += j;
+			word++;
+		}
+	}
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**matriz;
+	int		words;
+
+	if (!s)
+		return (NULL);
+	words = countwords(s, c);
+	matriz = malloc((words + 1) * sizeof(char *));
+	if (!matriz)
+		return (NULL);
+	matriz[words] = NULL;
+	do_the_split(matriz, (char *)s, c);
+	return (matriz);
+}
 
 // PUSH_SWAP FUNCTIONS
 
@@ -327,12 +408,16 @@ int ft_check_parameters(int argc, char **argv)
 	{
 		j = -1;
 		while(argv[i][++j])
-			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != '-')
+			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != '-' && argv[i][j] != ' ')
 				return (1);
 		j = -1;
 		while(argv[i][++j])
+		{
+			if (argv[i][j] == ' ')
+				return (5);
 			if (j > 9)
 				return (2);
+		}
 	}
 	arr = malloc(sizeof(double) * (argc - 1));
 	i = 0;
@@ -355,7 +440,7 @@ int ft_check_parameters(int argc, char **argv)
 }
 
 // function to collect the parameters of the stack_a
-d_list **ft_collect_integers(int argc, char **argv)
+d_list **ft_collect_integers(int argc, char **argv, int k)
 {
 	d_list **stack_a;
 	int *value;
@@ -363,8 +448,8 @@ d_list **ft_collect_integers(int argc, char **argv)
 
 	stack_a = malloc(sizeof(d_list*));
 	*stack_a = NULL;
-	i = 1;
-	while (i < argc)
+	i = k;
+	while ((k == 1 && i < argc) || (k == 0 && i <= argc))
 	{
 		value = malloc(sizeof(int));
 		*value = ft_atoi(argv[i++]);
@@ -398,7 +483,7 @@ int ft_sort_stack0(d_list **stack_a, d_list **stack_b)
 		start_a = *stack_a;
 		start_b = *stack_b;
 		i = 0;
-		while (i < ft_lstsize_d_lst(*stack_a) - 1)
+		while (i < ft_lstsize_d_lst(*stack_a))
 		{
 			if (*(start_a->content) < *(start_a->next->content))
 			{
@@ -425,6 +510,7 @@ int ft_sort_stack1(d_list **stack_a, d_list **stack_b)
 	return (1);
 }
 
+//gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	d_list **stack_a;
@@ -432,18 +518,20 @@ int main (int argc, char **argv)
 	int check_param;
 
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
-	if (ft_check_parameters(argc, argv))
+	if (ft_check_parameters(argc, argv) && ft_check_parameters(argc, argv) != 5)
 	{
-		printf("error\n");
+		printf("error %i\n", ft_check_parameters(argc, argv));
 		return (1);
 	}
-
-	// Passing stack_a parameters to double linked list
-	stack_a = ft_collect_integers(argc, argv);
+	if (ft_check_parameters(argc, argv) == 5)
+		stack_a = ft_collect_integers(argc, ft_split(argv[1], ' '), 0);
+	else
+		stack_a = ft_collect_integers(argc, argv, 1);
 
 	// Creating stack_b
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
+	
 	/*
 	// testing function to print double linked list at start
 	printf("-------------\nStack A Start\n");
@@ -457,13 +545,11 @@ int main (int argc, char **argv)
 
 
 	// Sorting
-	printf("-------------------------\n");
+	printf("\n-------------------------\n\n");
 	*/
-	ft_sort_stack1(stack_a, stack_b);
+	ft_sort_stack0(stack_a, stack_b);
+
 	/*
-	printf("-------------------------\n");
-
-
 	// testing function to print double linked list at end
 	printf("-------------\nStack A End\n");
 	ft_print_linked_list(*stack_a);
