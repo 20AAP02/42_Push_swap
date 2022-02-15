@@ -510,11 +510,23 @@ int ft_sort_stack1(d_list **stack_a, d_list **stack_b)
 	return (1);
 }
 
+// free split argv[1] strings
+void ft_free_split(char **mem)
+{
+	int i;
+
+	i = -1;
+	while (mem[++i])
+		free(mem[i]);
+	free(mem);
+}
+
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	d_list **stack_a;
 	d_list **stack_b;
+	char **mem;
 	int check_param;
 
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
@@ -524,7 +536,9 @@ int main (int argc, char **argv)
 		return (1);
 	}
 	if (ft_check_parameters(argc, argv) == 5)
-		stack_a = ft_collect_integers(argc, ft_split(argv[1], ' '), 0);
+		mem = ft_split(argv[1], ' ');
+	if (ft_check_parameters(argc, argv) == 5)
+		stack_a = ft_collect_integers(argc, mem, 0);
 	else
 		stack_a = ft_collect_integers(argc, argv, 1);
 
@@ -561,6 +575,7 @@ int main (int argc, char **argv)
 	printf("%i\n", ft_list_sorted(*stack_a));
 	*/
 	// free lists
+	ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 	ft_lstclear_d_lst(stack_b);
 
