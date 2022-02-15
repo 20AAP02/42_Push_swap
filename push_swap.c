@@ -546,7 +546,7 @@ int main (int argc, char **argv)
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
 	
-	///*
+	/*
 	// testing function to print double linked list at start
 	printf("-------------\nStack A Start\n");
 	ft_print_linked_list(*stack_a);
@@ -560,10 +560,10 @@ int main (int argc, char **argv)
 
 	// Sorting
 	printf("\n-------------------------\n\n");
-	//*/
+	*/
 	ft_sort_stack0(stack_a, stack_b);
 
-	///*
+	/*
 	// testing function to print double linked list at end
 	printf("-------------\nStack A End\n");
 	ft_print_linked_list(*stack_a);
@@ -573,7 +573,7 @@ int main (int argc, char **argv)
 	// check if stack_a is sorted at end
 	printf("-------------\nStack_A sorted: ");
 	printf("%i\n", ft_list_sorted(*stack_a));
-	//*/
+	*/
 	// free lists
 	if (ft_check_parameters(argc, argv) == 5)
 		ft_free_split(mem);
