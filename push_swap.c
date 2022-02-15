@@ -575,7 +575,8 @@ int main (int argc, char **argv)
 	printf("%i\n", ft_list_sorted(*stack_a));
 	*/
 	// free lists
-	ft_free_split(mem);
+	if (ft_check_parameters(argc, argv) == 5)
+		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 	ft_lstclear_d_lst(stack_b);
 
