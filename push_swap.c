@@ -641,7 +641,6 @@ int main (int argc, char **argv)
 	printf("-------------\nStack_A sorted: ");
 	printf("%i\n", ft_list_sorted(*stack_a));
 
-
 	// Sorting
 	printf("\n-------------------------\n\n");
 	*/
