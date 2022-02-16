@@ -483,7 +483,7 @@ d_list **ft_collect_integers(int argc, char **argv, int k)
 	stack_a = malloc(sizeof(d_list*));
 	*stack_a = NULL;
 	i = k;
-	while ((k == 1 && i < argc) || (k == 0 && i <= argc))
+	while ((k == 1 && i < argc) || (k == 0 && argv[i]))
 	{
 		value = malloc(sizeof(int));
 		*value = ft_atoi(argv[i++]);
@@ -497,7 +497,7 @@ d_list **ft_make_lst_cpy(d_list **stack_a_cpy, d_list **stack_b_cpy, d_list *sta
 {
 	int *value;
 
-	// Creating stack_a & stack_b
+	// Creating stack_a & stack_b copies
 	stack_a_cpy = malloc(sizeof(d_list*));
 	*stack_a_cpy = NULL;
 	stack_b_cpy = malloc(sizeof(d_list*));
@@ -527,70 +527,95 @@ void ft_print_linked_list(d_list *stack_a)
 	}
 }
 
-// function to update sort score (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
-void ft_update_sort_score(s_sort *sort_s, char *move)
+// function to apply move to stacks (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
+void ft_change_lst(char move, d_list **stack_a, d_list **stack_b)
+{
+	if (move == '1')
+		ft_sa(*stack_a);
+	else if (move == '2')
+		ft_sb(*stack_b);
+	else if (move == '3')
+		ft_pa(stack_a, stack_b);
+	else if (move == '4')
+		ft_pb(stack_a, stack_b);
+	else if (move == '5')
+		ft_ra(stack_a);
+	else if (move == '6')
+		ft_rb(stack_b);
+	else if (move == '7')
+		ft_rra(stack_a);
+	else if (move == '8')
+		ft_rrb(stack_b);
+}
+
+// function to update sort score
+void ft_update_sort_score(s_sort *sort_s, char *move, d_list **stack_a, d_list **stack_b)
 {
 	char *mem;
 
-	sort_s->n_moves += 1;
 	if (!(sort_s->moves_str))
-	{
-		sort_s->moves_str = malloc(sizeof(char) + 1);
-		(sort_s->moves_str)[0] = move[0];
-		(sort_s->moves_str)[1] = 0;
-	}
+		sort_s->moves_str = ft_strjoin(move, "");
 	else
 	{
 		mem = ft_strjoin(sort_s->moves_str, move);
-		// copy moves_str to mem & add new move
 		free(sort_s->moves_str);
 		sort_s->moves_str = mem;
+	}
+	while (*move)
+	{
+		sort_s->n_moves += 1;
+		ft_change_lst(*move++, stack_a, stack_b);
 	}
 }
 
 // Sort functions
-d_list **ft_sort_stack0(d_list **stack_a, d_list **stack_b, s_sort *sort_0)
+void ft_sort_stack0(d_list **stack_a, d_list **stack_b, s_sort *sort_0)
 {
-	d_list *start_a;
-	d_list *start_b;
 	int i;
 
 	while (ft_lstsize_d_lst(*stack_a) > 1)
 	{
-		start_a = *stack_a;
-		start_b = *stack_b;
 		i = 0;
 		while (i < ft_lstsize_d_lst(*stack_a))
 		{
+			if (*((*stack_a)->content) < *((*stack_a)->next->content) && !ft_list_sorted(*stack_a))
+				ft_update_sort_score(sort_0, "1", stack_a, stack_b);
 			if (ft_list_sorted(*stack_a))
 				break ;
-			if (*(start_a->content) < *(start_a->next->content))
-			{
-				ft_sa(start_a);
-				ft_update_sort_score(sort_0, "1");
-			}
-			if (ft_list_sorted(*stack_a))
-				break ;
-			ft_ra(stack_a);
-			ft_update_sort_score(sort_0, "5");
+			ft_update_sort_score(sort_0, "5", stack_a, stack_b);
 			i++;
 		}
 		if (ft_list_sorted(*stack_a))
 			break ;
-		ft_pb(stack_a, stack_b);
-		ft_update_sort_score(sort_0, "4");
+		ft_update_sort_score(sort_0, "4", stack_a, stack_b);
 	}
 	while (ft_lstsize_d_lst(*stack_b))
-	{
-		ft_pa(stack_a, stack_b);
-		ft_update_sort_score(sort_0, "3");
-	}
-	return (stack_a);
+		ft_update_sort_score(sort_0, "3", stack_a, stack_b);
 }
 
-int ft_sort_stack1(d_list **stack_a, d_list **stack_b)
+// sort algrithm for lists of 3 numbers
+void ft_sort_stack1(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
 {
-	return (1);
+	int mem1;
+	int mem2;
+	int mem3;
+
+	if (ft_lstsize_d_lst(*stack_a) != 3)
+		return ;
+	mem1 = *((*stack_a)->content);
+	mem2 = *((*stack_a)->next->content);
+	mem3 = *((*stack_a)->next->next->content);
+
+	if (mem1 > mem2 && mem1 < mem3)
+		ft_update_sort_score(sort_1, "1", stack_a, stack_b);
+	else if (mem1 > mem2 && mem1 > mem3 && mem2 > mem3)
+		ft_update_sort_score(sort_1, "17", stack_a, stack_b);
+	else if (mem1 > mem2 && mem1 > mem3 && mem2 < mem3)
+		ft_update_sort_score(sort_1, "5", stack_a, stack_b);
+	else if (mem1 < mem2 && mem1 < mem3 && mem2 > mem3)
+		ft_update_sort_score(sort_1, "15", stack_a, stack_b);
+	else if (mem1 < mem2 && mem1 > mem3)
+		ft_update_sort_score(sort_1, "7", stack_a, stack_b);
 }
 
 // free split argv[1] strings
@@ -607,18 +632,18 @@ void ft_free_split(char **mem)
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
-	s_sort sort_0;
+	d_list **stack_a_cpy;
+	d_list **stack_b_cpy;
+	s_sort sort_1;
+
 	d_list **stack_a;
 	d_list **stack_b;
+	s_sort sort_0;
 	char **mem;
-	int check_param;
 
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
 	if (ft_check_parameters(argc, argv) && ft_check_parameters(argc, argv) != 5)
-	{
-		printf("error %i\n", ft_check_parameters(argc, argv));
-		return (1);
-	}
+		return (printf("error %i\n", ft_check_parameters(argc, argv)));
 	if (ft_check_parameters(argc, argv) == 5)
 		mem = ft_split(argv[1], ' ');
 	if (ft_check_parameters(argc, argv) == 5)
@@ -629,43 +654,34 @@ int main (int argc, char **argv)
 	// Creating stack_b
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
-	
-	/*
-	// testing function to print double linked list at start
-	printf("-------------\nStack A Start\n");
-	ft_print_linked_list(*stack_a);
-	printf("-------------\nStack B Start\n");
-	ft_print_linked_list(*stack_b);
 
-	// check if stack_a is sorted at start
-	printf("-------------\nStack_A sorted: ");
-	printf("%i\n", ft_list_sorted(*stack_a));
+	// Creating copys of stacks
+	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, stack_b_cpy, *stack_a);
+	sort_1.n_moves = 0;
+	sort_1.moves_str = NULL;
 
-	// Sorting
-	printf("\n-------------------------\n\n");
-	*/
 	sort_0.n_moves = 0;
 	sort_0.moves_str = NULL;
-	ft_print_linked_list(*(ft_sort_stack0(stack_a, stack_b, &sort_0)));
+
+	// Sorting lists
+	printf("------%i-------------%i--------\n", ft_lstsize_d_lst(*stack_a), ft_lstsize_d_lst(*stack_a_cpy));
+	ft_sort_stack0(stack_a, stack_b, &sort_0);
+	ft_sort_stack1(stack_a_cpy, stack_b_cpy, &sort_1);
+
+
 	printf("%s\n%i\n", sort_0.moves_str, sort_0.n_moves);
+	printf("------%i-------------%i--------\n", ft_lstsize_d_lst(*stack_a), ft_lstsize_d_lst(*stack_a_cpy));
+	printf("%s\n%i\n", sort_1.moves_str, sort_1.n_moves);
 
-	/*
-	// testing function to print double linked list at end
-	printf("-------------\nStack A End\n");
-	ft_print_linked_list(*stack_a);
-	printf("-------------\nStack B End\n");
-	ft_print_linked_list(*stack_b);
-
-	// check if stack_a is sorted at end
-	printf("-------------\nStack_A sorted: ");
-	printf("%i\n", ft_list_sorted(*stack_a));
-	*/
 	// free lists
+	free(sort_1.moves_str);
 	free(sort_0.moves_str);
 	if (ft_check_parameters(argc, argv) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 	ft_lstclear_d_lst(stack_b);
+	ft_lstclear_d_lst(stack_a_cpy);
+	ft_lstclear_d_lst(stack_b_cpy);
 
 	return (0);
 }
