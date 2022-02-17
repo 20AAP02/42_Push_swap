@@ -616,6 +616,92 @@ void ft_sort_stack1(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
 		ft_update_sort_score(sort_1, "7", stack_a, stack_a);
 }
 
+int ft_find_max_pos_lst(d_list *stack)
+{
+	int i;
+	int j;
+	int max_value;
+
+	i = 0;
+	j = 0;
+	max_value = *(stack->content);
+	while (stack)
+	{
+		if (*(stack->content) > max_value)
+		{
+			max_value = *(stack->content);
+			j = i;
+		}
+		i++;
+		stack = stack->next;
+	}
+	return (j);
+}
+
+int ft_find_min_pos_lst(d_list *stack)
+{
+	int i;
+	int j;
+	int min_value;
+
+	i = 0;
+	j = 0;
+	min_value = *(stack->content);
+	while (stack)
+	{
+		if (*(stack->content) < min_value)
+		{
+			min_value = *(stack->content);
+			j = i;
+		}
+		i++;
+		stack = stack->next;
+	}
+	return (j);
+}
+
+int ft_find_max_lst(d_list *stack)
+{
+	int max_value;
+
+	max_value = *(stack->content);
+	while (stack)
+	{
+		if (*(stack->content) > max_value)
+			max_value = *(stack->content);
+		stack = stack->next;
+	}
+	return (max_value);
+}
+
+int ft_find_min_lst(d_list *stack)
+{
+	int min_value;
+
+	min_value = *(stack->content);
+	while (stack)
+	{
+		if (*(stack->content) < min_value)
+			min_value = *(stack->content);
+		stack = stack->next;
+	}
+	return (min_value);
+}
+
+void ft_sort_stack2(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
+{
+	int max;
+	d_list *mem;
+	int pos;
+
+	max = ft_find_max_lst(*stack_a);
+	while (ft_lstsize_d_lst(*stack_a))
+	{
+		pos = ft_find_max_pos_lst(*stack_a);
+		
+	}
+}
+
 // free split argv[1] strings
 void ft_free_split(char **mem)
 {
@@ -632,16 +718,21 @@ int ft_compare_algorithm_scores(s_sort **sort_scores)
 {
 	int moves;
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;
 	moves = (*sort_scores)->n_moves;
 	while (sort_scores[i])
 	{
 		if ((sort_scores[i])->n_moves < moves)
+		{
 			moves = (sort_scores[i])->n_moves;
+			j = i;
+		}
 		i++;
 	}
-	return (i);
+	return (j);
 }
 
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
@@ -693,6 +784,7 @@ int main (int argc, char **argv)
 
 	printf("%s -- %i\n", (sort_scores[0])->moves_str, (sort_scores[0])->n_moves);
 	printf("%s -- %i\n", (sort_scores[1])->moves_str, (sort_scores[1])->n_moves);
+	printf("%i\n", ft_compare_algorithm_scores(sort_scores));
 
 	// free lists
 	if (ft_check_parameters(argc, argv) == 5)
