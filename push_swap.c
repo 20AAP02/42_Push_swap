@@ -592,7 +592,7 @@ void ft_sort_stack0(d_list **stack_a, d_list **stack_b, s_sort *sort_0)
 }
 
 // sort algrithm for lists of 3 numbers
-void ft_sort_stack1(d_list **stack_a, s_sort *sort_1)
+void ft_sort_stack1(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
 {
 	int mem1;
 	int mem2;
@@ -627,16 +627,31 @@ void ft_free_split(char **mem)
 	free(mem);
 }
 
+// function to compare sorting algorithms
+int ft_compare_algorithm_scores(s_sort **sort_scores)
+{
+	int moves;
+	int i;
+
+	i = 0;
+	moves = (*sort_scores)->n_moves;
+	while (sort_scores[i])
+	{
+		if ((sort_scores[i])->n_moves < moves)
+			moves = (sort_scores[i])->n_moves;
+		i++;
+	}
+	return (i);
+}
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	d_list **stack_a_cpy;
 	d_list **stack_b_cpy;
-	s_sort sort_1;
+	s_sort **sort_scores;
 
 	d_list **stack_a;
 	d_list **stack_b;
-	s_sort sort_0;
 	char **mem;
 
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
@@ -649,37 +664,48 @@ int main (int argc, char **argv)
 	else
 		stack_a = ft_collect_integers(argc, argv, 1);
 
+	// malloc for sort_scores array
+	sort_scores = malloc(sizeof(s_sort*) * 2);
+
 	// Creating stack_b
 	stack_b = malloc(sizeof(d_list*));
 	*stack_b = NULL;
 
 	// initialising sort_0 scores
-	sort_0.n_moves = 0;
-	sort_0.moves_str = NULL;
+	sort_scores[0] = malloc(sizeof(s_sort));
+	(sort_scores[0])->n_moves = 0;
+	(sort_scores[0])->moves_str = NULL;
 
 	// initialising sort_1 scores
-	sort_1.n_moves = 0;
-	sort_1.moves_str = NULL;
+	sort_scores[1] = malloc(sizeof(s_sort));
+	(sort_scores[1])->n_moves = 0;
+	(sort_scores[1])->moves_str = NULL;
 
 	// making stack_a copy
 	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, *stack_a);
 	
 	// Sorting lists
-	ft_sort_stack0(stack_a, stack_b, &sort_0);
-	ft_sort_stack1(stack_a_cpy, &sort_1);
+	ft_sort_stack0(stack_a, stack_b, sort_scores[0]);
+	ft_sort_stack1(stack_a_cpy, stack_a_cpy, sort_scores[1]);
 
-	printf("%s -- %i\n", sort_0.moves_str, sort_0.n_moves);
-	printf("%s -- %i\n", sort_1.moves_str, sort_1.n_moves);
+	printf("%s -- %i\n", (sort_scores[0])->moves_str, (sort_scores[0])->n_moves);
+	printf("%s -- %i\n", (sort_scores[1])->moves_str, (sort_scores[1])->n_moves);
 
 	// free lists
-	free(sort_0.moves_str);
 	if (ft_check_parameters(argc, argv) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 	ft_lstclear_d_lst(stack_b);
 
 	ft_lstclear_d_lst(stack_a_cpy);
-	free(sort_1.moves_str);
+
+	while(sort_scores)
+	{
+		free((*sort_scores)->moves_str);
+		free(*sort_scores);
+		sort_scores++;
+	}
+	free(sort_scores);
 	
 	return (0);
 }
