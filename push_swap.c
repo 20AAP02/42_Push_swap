@@ -643,12 +643,14 @@ int ft_compare_algorithm_scores(s_sort **sort_scores)
 	}
 	return (i);
 }
+
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	d_list **stack_a_cpy;
 	d_list **stack_b_cpy;
 	s_sort **sort_scores;
+	s_sort **ex;
 
 	d_list **stack_a;
 	d_list **stack_b;
@@ -665,7 +667,8 @@ int main (int argc, char **argv)
 		stack_a = ft_collect_integers(argc, argv, 1);
 
 	// malloc for sort_scores array
-	sort_scores = malloc(sizeof(s_sort*) * 2);
+	sort_scores = malloc(sizeof(s_sort*) * 3);
+	sort_scores[2] = NULL;
 
 	// Creating stack_b
 	stack_b = malloc(sizeof(d_list*));
@@ -699,13 +702,16 @@ int main (int argc, char **argv)
 
 	ft_lstclear_d_lst(stack_a_cpy);
 
-	while(sort_scores)
+	// free sort_scores
+	ex = sort_scores;
+	while (*sort_scores)
 	{
-		free((*sort_scores)->moves_str);
+		if ((*sort_scores)->moves_str)
+			free((*sort_scores)->moves_str);
 		free(*sort_scores);
 		sort_scores++;
 	}
-	free(sort_scores);
-	
+	free(ex);
+
 	return (0);
 }
