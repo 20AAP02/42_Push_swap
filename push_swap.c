@@ -428,13 +428,26 @@ int ft_list_sorted(d_list *stack)
 	return (1);
 }
 
+// function to count number of strings in and array of strings
+int ft_str_arr_size(char **argv)
+{
+	int i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	return (i);
+}
+
 // Function to check if parameters have no errors (too many lines)
-int ft_check_parameters(int argc, char **argv)
+int ft_check_parameters(int argc, char **argv, int k)
 {
 	double *arr;
 	int i;
 	int j;
 
+	if (k)
+		argc = ft_str_arr_size(argv);
 	if (argc > 501)
 		return (3);
 	i = 0;
@@ -712,6 +725,61 @@ void ft_sort_stack2(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
 		ft_update_sort_score(sort_2, "3", stack_a, stack_b);
 }
 
+void ft_sort_stack3(d_list **stack_a, d_list **stack_b, s_sort *sort_3)
+{
+	int min;
+	int pos;
+	int i;
+
+	min = ft_find_min_lst(*stack_a);
+	while (ft_lstsize_d_lst(*stack_a) > 3)
+	{
+		pos = ft_find_min_pos_lst(*stack_a);
+		if (pos <= (ft_lstsize_d_lst(*stack_a) / 2))
+			while (ft_find_min_pos_lst(*stack_a) != 0)
+				ft_update_sort_score(sort_3, "5", stack_a, stack_a);
+		else
+			while (ft_find_min_pos_lst(*stack_a) != 0)
+				ft_update_sort_score(sort_3, "7", stack_a, stack_a);
+		ft_update_sort_score(sort_3, "4", stack_a, stack_b);
+	}
+	ft_sort_stack1(stack_a, stack_b, sort_3);
+	if (ft_lstsize_d_lst(*stack_b) == 3 && !ft_list_sorted(*stack_b))
+		ft_sort_stack1(stack_a, stack_b, sort_3);
+	else if (ft_lstsize_d_lst(*stack_b) == 2)
+	{
+		if (ft_find_min_pos_lst(*stack_b) != 0)
+			ft_update_sort_score(sort_3, "2", stack_a, stack_b);
+	}
+	else if (!ft_list_sorted(*stack_b))
+	{
+		i = 0;
+		while (ft_lstsize_d_lst(*stack_b))
+		{
+			ft_update_sort_score(sort_3, "3", stack_a, stack_b);
+			if (i != 0)
+			{
+				if (*((*stack_a)->content) > *((*stack_a)->next->content))
+					ft_update_sort_score(sort_3, "1", stack_a, stack_b);
+				ft_update_sort_score(sort_3, "5", stack_a, stack_b);
+			}
+			i++;
+		}
+		while (ft_find_min_pos_lst(*stack_a) != 0)
+			ft_update_sort_score(sort_3, "7", stack_a, stack_b);
+		return ;
+	}
+
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_update_sort_score(sort_3, "3", stack_a, stack_b);
+		if (ft_lstsize_d_lst(*stack_b) != 0)
+			ft_update_sort_score(sort_3, "5", stack_a, stack_b);
+	}
+	while (ft_find_min_pos_lst(*stack_a) != 0)
+		ft_update_sort_score(sort_3, "7", stack_a, stack_b);
+}
+
 // free split argv[1] strings
 void ft_free_split(char **mem)
 {
@@ -766,6 +834,20 @@ void ft_test_algorithm(s_sort *sort_s, d_list **stack_a, void (*f)(d_list**, d_l
 	free(stack_b_cpy);
 }
 
+void ft_free_sort_scores(s_sort **sort_scores)
+{
+	s_sort **ex;
+
+	ex = sort_scores;
+	while (*sort_scores)
+	{
+		if ((*sort_scores)->moves_str)
+			free((*sort_scores)->moves_str);
+		free(*sort_scores);
+		sort_scores++;
+	}
+	free(ex);	
+}
 
 //gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
@@ -776,24 +858,28 @@ int main (int argc, char **argv)
 
 	d_list **stack_a;
 	char **mem;
-
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
-	if (ft_check_parameters(argc, argv) && ft_check_parameters(argc, argv) != 5)
-		return (printf("error %i\n", ft_check_parameters(argc, argv)));
-	if (ft_check_parameters(argc, argv) == 5)
+	if (ft_check_parameters(argc, argv, 0) && ft_check_parameters(argc, argv, 0) != 5)
+		return (printf("error\n"));
+	if (ft_check_parameters(argc, argv, 0) == 5)
 		mem = ft_split(argv[1], ' ');
-	if (ft_check_parameters(argc, argv) == 5)
+	if (ft_check_parameters(argc, argv, 0) == 5 && ft_check_parameters(argc, mem, 1))
+	{
+		ft_free_split(mem);
+		return (printf("error\n"));
+	}
+	if (ft_check_parameters(argc, argv, 0) == 5)
 		stack_a = ft_collect_integers(argc, mem, 0);
 	else
 		stack_a = ft_collect_integers(argc, argv, 1);
 
 	// malloc for sort_scores array
-	sort_scores = malloc(sizeof(s_sort*) * 4);
-	sort_scores[3] = NULL;
+	sort_scores = malloc(sizeof(s_sort*) * 5);
+	sort_scores[4] = NULL;
 
 	// initialising sort_scores
 	x = 0;
-	while (x < 3)
+	while (x < 4)
 	{
 		sort_scores[x] = malloc(sizeof(s_sort));
 		(sort_scores[x])->n_moves = 0;
@@ -805,30 +891,31 @@ int main (int argc, char **argv)
 	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack0);
 	ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack1);
 	ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack2);
+	ft_test_algorithm(sort_scores[3], stack_a, ft_sort_stack3);
 
 	printf("%i\n", (sort_scores[0])->n_moves);
 	printf("%i\n", (sort_scores[1])->n_moves);
 	printf("%i\n", (sort_scores[2])->n_moves);
+	printf("%i\n", (sort_scores[3])->n_moves);
 	if (ft_lstsize_d_lst(*stack_a) != 3)
 		printf("%i\n", ft_compare_algorithm_scores(sort_scores, 3));
 	else
 		printf("%i\n", ft_compare_algorithm_scores(sort_scores, 0));
 
 	// free lists
-	if (ft_check_parameters(argc, argv) == 5)
+	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 
 	// free sort_scores
-	ex = sort_scores;
-	while (*sort_scores)
-	{
-		if ((*sort_scores)->moves_str)
-			free((*sort_scores)->moves_str);
-		free(*sort_scores);
-		sort_scores++;
-	}
-	free(ex);
+	ft_free_sort_scores(sort_scores);
 
 	return (0);
 }
+
+// limits
+
+// 3 digits - (max: 3)
+// 5 digits - (max: 12)
+// 100 digits - (max: 700)
+// 500 digits - (max: 5500)
