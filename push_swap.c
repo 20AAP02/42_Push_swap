@@ -698,8 +698,16 @@ void ft_sort_stack2(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
 	while (ft_lstsize_d_lst(*stack_a))
 	{
 		pos = ft_find_max_pos_lst(*stack_a);
-		
+		if (pos <= (ft_lstsize_d_lst(*stack_a) / 2))
+			while (ft_find_max_pos_lst(*stack_a) != 0)
+				ft_update_sort_score(sort_2, "5", stack_a, stack_a);
+		else
+			while (ft_find_max_pos_lst(*stack_a) != 0)
+				ft_update_sort_score(sort_2, "7", stack_a, stack_a);
+		ft_update_sort_score(sort_2, "4", stack_a, stack_b);
 	}
+	while (ft_lstsize_d_lst(*stack_b))
+		ft_update_sort_score(sort_2, "3", stack_a, stack_b);
 }
 
 // free split argv[1] strings
@@ -735,16 +743,30 @@ int ft_compare_algorithm_scores(s_sort **sort_scores)
 	return (j);
 }
 
-//gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
-int main (int argc, char **argv)
+// function to test algorithms whithout having to create a stack for each algorithm
+void ft_test_algorithm(s_sort *sort_s, d_list **stack_a, void (*f)(d_list**, d_list**, s_sort*))
 {
 	d_list **stack_a_cpy;
 	d_list **stack_b_cpy;
+
+	stack_b_cpy = malloc(sizeof(d_list*));
+	*stack_b_cpy = NULL;
+
+	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, *stack_a);
+	(*f)(stack_a_cpy, stack_b_cpy, sort_s);
+
+	ft_lstclear_d_lst(stack_a_cpy);
+	free(stack_b_cpy);
+}
+
+
+//gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
+int main (int argc, char **argv)
+{
 	s_sort **sort_scores;
 	s_sort **ex;
 
 	d_list **stack_a;
-	d_list **stack_b;
 	char **mem;
 
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
@@ -761,26 +783,21 @@ int main (int argc, char **argv)
 	sort_scores = malloc(sizeof(s_sort*) * 3);
 	sort_scores[2] = NULL;
 
-	// Creating stack_b
-	stack_b = malloc(sizeof(d_list*));
-	*stack_b = NULL;
-
-	// initialising sort_0 scores
-	sort_scores[0] = malloc(sizeof(s_sort));
-	(sort_scores[0])->n_moves = 0;
-	(sort_scores[0])->moves_str = NULL;
-
-	// initialising sort_1 scores
-	sort_scores[1] = malloc(sizeof(s_sort));
-	(sort_scores[1])->n_moves = 0;
-	(sort_scores[1])->moves_str = NULL;
-
-	// making stack_a copy
-	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, *stack_a);
+	// initialising sort_scores
+	ex = sort_scores;
+	while (*sort_scores)
+	{
+		*sort_scores = malloc(sizeof(s_sort));
+		(*sort_scores)->n_moves = 0;
+		(*sort_scores)->moves_str = NULL;
+		sort_scores++;
+		printf("1\n");
+	}
+	sort_scores = ex;
 	
 	// Sorting lists
-	ft_sort_stack0(stack_a, stack_b, sort_scores[0]);
-	ft_sort_stack1(stack_a_cpy, stack_a_cpy, sort_scores[1]);
+	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack0);
+	ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack1);
 
 	printf("%s -- %i\n", (sort_scores[0])->moves_str, (sort_scores[0])->n_moves);
 	printf("%s -- %i\n", (sort_scores[1])->moves_str, (sort_scores[1])->n_moves);
@@ -790,9 +807,6 @@ int main (int argc, char **argv)
 	if (ft_check_parameters(argc, argv) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
-	ft_lstclear_d_lst(stack_b);
-
-	ft_lstclear_d_lst(stack_a_cpy);
 
 	// free sort_scores
 	ex = sort_scores;
