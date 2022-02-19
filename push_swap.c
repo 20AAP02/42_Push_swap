@@ -578,7 +578,8 @@ void ft_update_sort_score(s_sort *sort_s, char *move, d_list **stack_a, d_list *
 	while (*move)
 	{
 		sort_s->n_moves += 1;
-		ft_change_lst(*move++, stack_a, stack_b);
+		ft_change_lst(*move, stack_a, stack_b);
+		move++;
 	}
 }
 
@@ -955,6 +956,128 @@ void ft_sort_stack5(d_list **stack_a, d_list **stack_b, s_sort *sort_5)
 	}
 }
 
+// function to see if it exits a number smaller then i
+int ft_lower_then(d_list *stack, int i)
+{
+	while (stack)
+	{
+		if (*(stack->content) < i)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+// function to see if it exits a number bigger then i
+int ft_bigger_then(d_list *stack, int i)
+{
+	while (stack)
+	{
+		if (*(stack->content) > i)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+// function to see if it exits a number equal to i
+int ft_equal_to(d_list *stack, int i)
+{
+	while (stack)
+	{
+		if (*(stack->content) == i)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+void ft_sort_less3(d_list **stack_b, s_sort *sort_b)
+{
+	int mem1;
+	int mem2;
+	int mem3;
+
+	if (ft_list_sorted(*stack_b))
+		return ;
+	else if (ft_lstsize_d_lst(*stack_b) == 2)
+		ft_update_sort_score(sort_b, "2", stack_b, stack_b);
+	else
+	{
+		mem1 = *((*stack_b)->content);
+		mem2 = *((*stack_b)->next->content);
+		mem3 = *((*stack_b)->next->next->content);
+
+		if (mem1 > mem2 && mem1 < mem3)
+			ft_update_sort_score(sort_b, "2", stack_b, stack_b);
+		else if (mem1 > mem2 && mem1 > mem3 && mem2 > mem3)
+			ft_update_sort_score(sort_b, "28", stack_b, stack_b);
+		else if (mem1 > mem2 && mem1 > mem3 && mem2 < mem3)
+			ft_update_sort_score(sort_b, "6", stack_b, stack_b);
+		else if (mem1 < mem2 && mem1 < mem3 && mem2 > mem3)
+			ft_update_sort_score(sort_b, "26", stack_b, stack_b);
+		else if (mem1 < mem2 && mem1 > mem3)
+			ft_update_sort_score(sort_b, "8", stack_b, stack_b);
+	}
+}
+
+// THE Algorithm
+void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
+{
+	int avg;
+	int p_avg;
+	int min;
+
+	min = ft_find_min_lst(*stack_a);
+	// send smaller half to b
+	avg = ft_average_lst(*stack_a);
+	while (ft_lower_then(*stack_a, avg))
+	{
+		if (*((*stack_a)->content) < avg)
+			ft_update_sort_score(sort_6, "4", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_6, "5", stack_a, stack_b);
+	}
+	// while min != first_number_of(a)
+	while (min != *((*stack_a)->content))
+	{
+		// while size(b) > 3
+		while (ft_lstsize_d_lst(*stack_b) > 3)
+		{
+			p_avg = avg;
+			// calculate the average of b and send bigger half to a
+			avg = ft_average_lst(*stack_b);
+			while (ft_bigger_then(*stack_b, avg))
+			{
+				if (*((*stack_a)->content) > avg)
+					ft_update_sort_score(sort_6, "3", stack_a, stack_b);
+				else
+					ft_update_sort_score(sort_6, "6", stack_a, stack_b);
+				printf("3\n");
+			}
+		}
+		// sort b
+		ft_sort_less3(stack_b, sort_6);
+		//while size(b) > 0
+		while (ft_lstsize_d_lst(*stack_b))
+		{
+			// push number to A
+			ft_update_sort_score(sort_6, "3", stack_a, stack_b);
+			// rotate A with ra
+			ft_update_sort_score(sort_6, "5", stack_a, stack_b);
+		}
+		// while size(b) == 0 && min != *((*stack_a)->content) && *((*stack_a)->content) >= p_avg
+		//		go an average back
+		// while first_number_of(a) < past_average
+		while (*((*stack_a)->content) < p_avg)
+		{
+			// push number to b
+			ft_update_sort_score(sort_6, "4", stack_a, stack_b);
+		}
+		printf("--\n");
+	}
+}
+
 // free split argv[1] strings
 void ft_free_split(char **mem)
 {
@@ -1088,7 +1211,7 @@ int main (int argc, char **argv)
 	ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack2);
 	ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack3);
 	ft_test_algorithm(sort_scores[3], stack_a, ft_sort_stack4);
-	ft_test_algorithm(sort_scores[4], stack_a, ft_sort_stack5);
+	ft_test_algorithm(sort_scores[4], stack_a, ft_sort_stack6);
 
 	printf("%i\n", (sort_scores[0])->n_moves);
 	printf("%i\n", (sort_scores[1])->n_moves);
