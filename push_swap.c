@@ -1046,7 +1046,9 @@ int *ft_resize_arr(int *arr, int num, int action, int *size)
 	int i;
 
 	i = 0;
-	if (action && (*size == 0))
+	if (!action && *size == 0)
+		return (arr);
+	else if (action && (*size == 0))
 	{
 		arr = malloc(sizeof(int));
 		*arr = num;
@@ -1099,6 +1101,14 @@ int ft_avg_until_min(d_list *stack, int min)
 	return (sum / i);
 }
 
+void ft_print_avgs(int *arr, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+		printf("-- |%i| --\n", arr[i++]);
+}
 // THE Algorithm
 void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 {
@@ -1134,7 +1144,7 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 			// push number to b
 			ft_update_sort_score(sort_6, "4", stack_a, stack_b);
 		}
-		if (!ft_lstsize_d_lst(*stack_b) && check)
+		if (!ft_lstsize_d_lst(*stack_b))
 		{
 			while (min != *((*stack_a)->content))
 				ft_update_sort_score(sort_6, "4", stack_a, stack_b);
@@ -1145,6 +1155,7 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 		{
 			// calculate the average of b and send bigger half to a
 			avg = ft_resize_arr(avg, ft_average_lst(*stack_b), 1, &arr_size);
+			printf("------- | %i | ----------\n", arr_size);
 			while (ft_bigger_then(*stack_b, ft_arr_last(avg, &arr_size)))
 			{
 				if (*((*stack_b)->content) > ft_arr_last(avg, &arr_size))
@@ -1175,12 +1186,14 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 		printf("-\n");
 		ft_print_linked_list(*stack_b);
 		printf("---\n");
+		ft_print_avgs(avg, arr_size);
 		// while first_number_of(a) < past_average
 		while (*((*stack_a)->content) >= ft_arr_last(avg, &arr_size))
 		{
 			if (arr_size == 1)
 				break ;
 			avg = ft_resize_arr(avg, 0, 0, &arr_size);
+			printf("------- | %i | ----------\n", arr_size);
 		}
 		printf("--4--\n");
 		ft_print_linked_list(*stack_a);
