@@ -1109,6 +1109,36 @@ void ft_print_avgs(int *arr, int size)
 	while (i < size)
 		printf("-- |%i| --\n", arr[i++]);
 }
+
+// simplify list of ints to [0, N]
+void ft_make_range(d_list **stack_a, d_list **stack_b)
+{
+	d_list **stack_a_cpy;
+	d_list *mem;
+	int n;
+	int i;
+
+	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, *stack_a);
+	while (ft_lstsize_d_lst(*stack_a))
+	{
+		n = *((*stack_a_cpy)->content);
+		mem = (*stack_a_cpy)->next;
+		i = 0;
+		while (mem)
+		{
+			if (*(mem->content) < n)
+				i++;
+			mem = mem->next;
+		}
+		*((*stack_a)->content) = i;
+		ft_pb(stack_a, stack_b);
+		ft_ra(stack_a_cpy);
+	}
+	while (ft_lstsize_d_lst(*stack_b))
+		ft_pa(stack_a, stack_b);
+	ft_lstclear_d_lst(stack_a_cpy);
+}
+
 // THE Algorithm
 void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 {
@@ -1118,6 +1148,7 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 	int sup_avg;
 	int check;
 
+	ft_make_range(stack_a, stack_b);
 	min = ft_find_min_lst(*stack_a);
 	// send smaller half to b
 	arr_size = 0;
@@ -1129,14 +1160,10 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 		else
 			ft_update_sort_score(sort_6, "5", stack_a, stack_b);
 	}
-	printf("--1--\n");
-	ft_print_linked_list(*stack_a);
-	printf("-\n");
-	ft_print_linked_list(*stack_b);
-	printf("---\n");
 	sup_avg = avg[0];
 	// while min != first_number_of(a)
 	check = 1;
+	printf("----\n");
 	while (min != *((*stack_a)->content))
 	{
 		while (*((*stack_a)->content) < ft_arr_last(avg, &arr_size) && min != *((*stack_a)->content))
@@ -1155,7 +1182,6 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 		{
 			// calculate the average of b and send bigger half to a
 			avg = ft_resize_arr(avg, ft_average_lst(*stack_b), 1, &arr_size);
-			printf("------- | %i | ----------\n", arr_size);
 			while (ft_bigger_then(*stack_b, ft_arr_last(avg, &arr_size)))
 			{
 				if (*((*stack_b)->content) > ft_arr_last(avg, &arr_size))
@@ -1163,13 +1189,7 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 				else
 					ft_update_sort_score(sort_6, "6", stack_a, stack_b);
 			}
-			printf("--2--\n");
-			ft_print_linked_list(*stack_a);
-			printf("-\n");
-			ft_print_linked_list(*stack_b);
-			printf("---\n");
 		}
-		printf("-------------\n");
 		// sort b
 		if (ft_lstsize_d_lst(*stack_b))
 			ft_sort_less3(stack_b, sort_6);
@@ -1181,32 +1201,194 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 			// rotate A with ra
 			ft_update_sort_score(sort_6, "5", stack_a, stack_b);
 		}
-		printf("--3--\n");
-		ft_print_linked_list(*stack_a);
-		printf("-\n");
-		ft_print_linked_list(*stack_b);
-		printf("---\n");
-		ft_print_avgs(avg, arr_size);
 		// while first_number_of(a) < past_average
 		while (*((*stack_a)->content) >= ft_arr_last(avg, &arr_size))
 		{
 			if (arr_size == 1)
 				break ;
 			avg = ft_resize_arr(avg, 0, 0, &arr_size);
-			printf("------- | %i | ----------\n", arr_size);
 		}
-		printf("--4--\n");
-		ft_print_linked_list(*stack_a);
-		printf("-\n");
-		ft_print_linked_list(*stack_b);
-		printf("---\n");
-		//printf("1\n");
 	}
-	printf("--5--\n");
+}
+
+// sorting function that devides the list in 4 
+void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
+{
+	int half;
+
+	ft_make_range(stack_a, stack_b);
+	half = ft_lstsize_d_lst(*stack_a) / 2;
+	while (ft_lstsize_d_lst(*stack_a) != half)
+	{
+		if (*((*stack_a)->content) < half)
+			ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= half)
+			ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+	}
+	// here half is merely being used so to not create another variable
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+
+	// quarter sorted
+
+	half = ft_lstsize_d_lst(*stack_a) / 2;
+	while (*((*stack_a)->content) < half)
+	{
+		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+	}
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+
+	// half sorted
+
+	while (*((*stack_a)->content) != 0)
+		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (half * 3))
+			ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+	}
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+
+	// 3 quarters sorted
+
+	while (*((*stack_a)->content) != 0)
+		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+
+	// sorted
+
 	ft_print_linked_list(*stack_a);
-	printf("-\n");
+	printf("----\n");
 	ft_print_linked_list(*stack_b);
-	printf("---\n");
+
+	printf("------------\n");
+}
+
+// (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
+// sorting function that devides the list in n (50, 25, (12, 13), (6, (6, 7))
+void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
+{
+	int n;
+	int i;
+	int size;
+	int check;
+	int min;
+
+	ft_make_range(stack_a, stack_b);
+	n = 4;
+	int arr[4];
+	size = ft_lstsize_d_lst(*stack_a);
+	i = 0;
+	while (i < 4)
+	{
+		size = size / 2;
+		arr[i] = size;
+	}
+	check = 1;
+	while (check)
+	{
+		i = 0;
+		while (ft_lstsize_d_lst(*stack_a) > arr[i])
+		{
+			if (*((*stack_a)->content) < arr[i])
+				ft_update_sort_score(sort_8, "4", stack_a, stack_b);
+			else
+				ft_update_sort_score(sort_8, "5", stack_a, stack_b);
+		}
+		i = 1;
+		check = 1;
+		while (ft_lstsize_d_lst(*stack_b) > arr[3] && check)
+		{
+			check = 0;
+			while (ft_lstsize_d_lst(*stack_a) >= arr[i])
+			{
+				check = 1;
+				if (*((*stack_a)->content) >= arr[i])
+					ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+				else
+					ft_update_sort_score(sort_8, "6", stack_a, stack_b);
+			}
+			i++;
+		}
+		check = 0;
+		// sort stack b
+		while (ft_lstsize_d_lst(*stack_b))
+		{
+			min = ft_find_min_pos_lst(*stack_b);
+			if (min <= (ft_lstsize_d_lst(*stack_b) / 2))
+				while (ft_find_min_pos_lst(*stack_b) != 0)
+					ft_update_sort_score(sort_8, "6", stack_a, stack_b);
+			else
+				while (ft_find_min_pos_lst(*stack_b) != 0)
+					ft_update_sort_score(sort_8, "8", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "5", stack_a, stack_b);
+		}
+
+		i = 1;
+		while (*((*stack_a)->content) != 0)
+		{
+			while (*((*stack_a)->content) < )
+		}
+
+		if(*((*stack_a)->content) != 0)
+			check = 1;
+	}
+	
 }
 
 // free split argv[1] strings
@@ -1338,7 +1520,7 @@ int main (int argc, char **argv)
 	
 	// Sorting lists
 	//ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack0);
-	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack6);
+	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
 	//ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack2);
 	//ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack3);
 	//ft_test_algorithm(sort_scores[3], stack_a, ft_sort_stack4);
