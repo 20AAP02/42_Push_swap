@@ -1110,6 +1110,36 @@ void ft_print_avgs(int *arr, int size)
 		printf("-- |%i| --\n", arr[i++]);
 }
 
+// function to calculate best route to sort numbers in stack b
+int ft_calc_route(d_list **stack_a, d_list **stack_b)
+{
+	d_list *mem;
+	int count;
+	int pos[2];
+	int p;
+
+	pos[1] = 0;
+	pos[0] = 0;
+	mem = (*stack_b)->next;
+	p = 0;
+	count = 0;
+	while (mem)
+	{
+		if (count > pos[1])
+			pos[0] = p - count;
+		if (count > pos[1])
+			pos[1] = count;
+		if (*(mem->past->content) != (*(mem->content) + 1))
+			count = 0;
+		else
+			count++;
+		mem = mem->next;
+		p++;
+	}
+	printf("- %i -- %i -\n", pos[0], pos[1]);
+}
+
+
 // simplify list of ints to [0, N]
 void ft_make_range(d_list **stack_a, d_list **stack_b)
 {
@@ -1211,8 +1241,51 @@ void ft_sort_stack6(d_list **stack_a, d_list **stack_b, s_sort *sort_6)
 	}
 }
 
-// sorting function that devides the list in 4 
+// sorting function that devides the list in 2
 void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
+{
+	int size;
+	int min;
+
+	ft_make_range(stack_a, stack_b);
+	size = ft_lstsize_d_lst(*stack_a);
+	while (ft_lstsize_d_lst(*stack_a) > size / 2)
+	{
+		if (*((*stack_a)->content) < size / 2)
+			ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		min = ft_find_min_pos_lst(*stack_b);
+		if (min <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+	while (ft_lstsize_d_lst(*stack_a) > size / 2)
+		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		min = ft_find_min_pos_lst(*stack_b);
+		if (min <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+	}
+}
+
+// sorting function that devides the list in 4 
+void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 {
 	int half;
 
@@ -1221,17 +1294,17 @@ void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
 	while (ft_lstsize_d_lst(*stack_a) != half)
 	{
 		if (*((*stack_a)->content) < half)
-			ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 		else
-			ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "5", stack_a, stack_b);
 	}
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
 		if (*((*stack_b)->content) >= half)
-			ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "3", stack_a, stack_b);
 		else
-			ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 	}
 	// here half is merely being used so to not create another variable
 	while (ft_lstsize_d_lst(*stack_b))
@@ -1239,12 +1312,12 @@ void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
 		half = ft_find_min_pos_lst(*stack_b);
 		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 		else
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "5", stack_a, stack_b);
 	}
 
 	// quarter sorted
@@ -1252,75 +1325,305 @@ void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
 	half = ft_lstsize_d_lst(*stack_a) / 2;
 	while (*((*stack_a)->content) < half)
 	{
-		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	}
 	while (ft_lstsize_d_lst(*stack_b))
 	{
 		half = ft_find_min_pos_lst(*stack_b);
 		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 		else
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "5", stack_a, stack_b);
 	}
 
 	// half sorted
 
 	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
 		if (*((*stack_b)->content) >= (half * 3))
-			ft_update_sort_score(sort_7, "3", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "3", stack_a, stack_b);
 		else
-			ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+			ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 	}
 	while (ft_lstsize_d_lst(*stack_b))
 	{
 		half = ft_find_min_pos_lst(*stack_b);
 		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 		else
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "5", stack_a, stack_b);
 	}
 
 	// 3 quarters sorted
 
 	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	while (ft_lstsize_d_lst(*stack_b))
 	{
 		half = ft_find_min_pos_lst(*stack_b);
 		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "6", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "6", stack_a, stack_b);
 		else
 			while (ft_find_min_pos_lst(*stack_b) != 0)
-				ft_update_sort_score(sort_7, "8", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "3", stack_a, stack_b);
-		ft_update_sort_score(sort_7, "5", stack_a, stack_b);
+				ft_update_sort_score(sort_8, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_8, "5", stack_a, stack_b);
 	}
-
-	// sorted
-
-	ft_print_linked_list(*stack_a);
-	printf("----\n");
-	ft_print_linked_list(*stack_b);
-
-	printf("------------\n");
 }
 
+// sorting function that devides the list in 8
+void ft_sort_stack9(d_list **stack_a, d_list **stack_b, s_sort *sort_9)
+{
+	int half;
+	int size;
+
+	ft_make_range(stack_a, stack_b);
+
+	// transfer smallest half of the list to stack b
+	half = ft_lstsize_d_lst(*stack_a) / 2;
+	while (ft_lstsize_d_lst(*stack_a) != half)
+	{
+		if (*((*stack_a)->content) < half)
+			ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+	// transfer biggest quarter of stack b to stack a 
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= half)
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// transfer half quarter of b to stack a
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= half)
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// sort stack b
+	// here half is merely being used so to not create another variable
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+
+	// transfer half quarter of a to stack b
+	half = ft_lstsize_d_lst(*stack_a) / 4;
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	// sort stack b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+
+	// quarter sorted
+
+	half = ft_lstsize_d_lst(*stack_a) / 2;
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+
+	// transfer half quarter of b to stack a
+	size = ft_lstsize_d_lst(*stack_b);
+	half = size / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (half + size))
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+
+	// transfer half quarter of a to stack b
+	half = ft_lstsize_d_lst(*stack_a) / 2;
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+
+	// half sorted
+
+	while (*((*stack_a)->content) != 0)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	
+	// transfer biggest quarter of stack b to stack a 
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (half * 3))
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// transfer half quarter of b to stack a
+	size = half;
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (size * 2) + half)
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	} 
+	
+	size = (ft_lstsize_d_lst(*stack_a) / 4) * 3;
+	// transfer half quarter of a to stack b
+	while (*((*stack_a)->content) < size)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+	
+	while (*((*stack_a)->content) != 0)
+		ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	
+	size = ft_lstsize_d_lst(*stack_b);
+	half = size / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (size * 3) + half)
+			ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+	}
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+	
+	while (*((*stack_a)->content) != 0)
+	{
+		if (*((*stack_a)->content) == *(ft_lstlast_d_lst(*stack_a)->content) + 1)
+			ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_9, "4", stack_a, stack_b);
+	}
+	// sort b
+	printf("------\n");
+	while (ft_lstsize_d_lst(*stack_b))
+	{
+		ft_calc_route(stack_a, stack_b);
+		half = ft_find_min_pos_lst(*stack_b);
+		if (half <= (ft_lstsize_d_lst(*stack_b) / 2))
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "6", stack_a, stack_b);
+		else
+			while (ft_find_min_pos_lst(*stack_b) != 0)
+				ft_update_sort_score(sort_9, "8", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "3", stack_a, stack_b);
+		ft_update_sort_score(sort_9, "5", stack_a, stack_b);
+	}
+}
+
+
+
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
-// sorting function that devides the list in n (50, 25, (12, 13), (6, (6, 7))
-void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
+// NOT FINISHED - sorting function that devides the list in n (50, 25, (12, 13), (6, (6, 7))
+void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 {
 	int n;
 	int i;
@@ -1345,9 +1648,9 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 		while (ft_lstsize_d_lst(*stack_a) > arr[i])
 		{
 			if (*((*stack_a)->content) < arr[i])
-				ft_update_sort_score(sort_8, "4", stack_a, stack_b);
+				ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 			else
-				ft_update_sort_score(sort_8, "5", stack_a, stack_b);
+				ft_update_sort_score(sort_10, "5", stack_a, stack_b);
 		}
 		i = 1;
 		check = 1;
@@ -1358,9 +1661,9 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 			{
 				check = 1;
 				if (*((*stack_a)->content) >= arr[i])
-					ft_update_sort_score(sort_8, "3", stack_a, stack_b);
+					ft_update_sort_score(sort_10, "3", stack_a, stack_b);
 				else
-					ft_update_sort_score(sort_8, "6", stack_a, stack_b);
+					ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 			}
 			i++;
 		}
@@ -1371,19 +1674,14 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 			min = ft_find_min_pos_lst(*stack_b);
 			if (min <= (ft_lstsize_d_lst(*stack_b) / 2))
 				while (ft_find_min_pos_lst(*stack_b) != 0)
-					ft_update_sort_score(sort_8, "6", stack_a, stack_b);
+					ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 			else
 				while (ft_find_min_pos_lst(*stack_b) != 0)
-					ft_update_sort_score(sort_8, "8", stack_a, stack_b);
-			ft_update_sort_score(sort_8, "3", stack_a, stack_b);
-			ft_update_sort_score(sort_8, "5", stack_a, stack_b);
+					ft_update_sort_score(sort_10, "8", stack_a, stack_b);
+			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
+			ft_update_sort_score(sort_10, "5", stack_a, stack_b);
 		}
 
-		i = 1;
-		while (*((*stack_a)->content) != 0)
-		{
-			while (*((*stack_a)->content) < )
-		}
 
 		if(*((*stack_a)->content) != 0)
 			check = 1;
@@ -1505,12 +1803,12 @@ int main (int argc, char **argv)
 		stack_a = ft_collect_integers(argc, argv, 1);
 
 	// malloc for sort_scores array
-	sort_scores = malloc(sizeof(s_sort*) * 2);
-	sort_scores[1] = NULL;
+	sort_scores = malloc(sizeof(s_sort*) * 4);
+	sort_scores[3] = NULL;
 
 	// initialising sort_scores
 	x = 0;
-	while (x < 1)
+	while (x < 3)
 	{
 		sort_scores[x] = malloc(sizeof(s_sort));
 		(sort_scores[x])->n_moves = 0;
@@ -1519,16 +1817,16 @@ int main (int argc, char **argv)
 	}
 	
 	// Sorting lists
-	//ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack0);
 	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
-	//ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack2);
+	ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack8);
+	ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack9);
 	//ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack3);
 	//ft_test_algorithm(sort_scores[3], stack_a, ft_sort_stack4);
 	//ft_test_algorithm(sort_scores[4], stack_a, ft_sort_stack6);
 
 	printf("%i\n", (sort_scores[0])->n_moves);
-	//printf("%i\n", (sort_scores[1])->n_moves);
-	//printf("%i\n", (sort_scores[2])->n_moves);
+	printf("%i\n", (sort_scores[1])->n_moves);
+	printf("%i\n", (sort_scores[2])->n_moves);
 	//printf("%i\n", (sort_scores[3])->n_moves);
 	//printf("%i\n", (sort_scores[4])->n_moves);
 	//printf("%i\n", (sort_scores[5])->n_moves);
