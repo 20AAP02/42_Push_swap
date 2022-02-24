@@ -1511,6 +1511,7 @@ void ft_sort_stack9(d_list **stack_a, d_list **stack_b, s_sort *sort_9)
 }
 
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
+
 // sorting function that devides the list in 16
 void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 {
@@ -1528,7 +1529,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "5", stack_a, stack_b);
 	}
-	// transfer biggest quarter of stack b to stack a 
+	// transfer biggest quarter of stack b to stack a
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
@@ -1546,25 +1547,57 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
+
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= half)
+			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
+	}
 	// sort stack b
-	// here half is merely being used so to not create another variable
 	ft_sortb_section(stack_a, stack_b, sort_10);
-	// transfer half quarter of a to stack b
+	
+	// 1 sixteenth sorted
+
+	half = ft_lstsize_d_lst(*stack_a) / 8;
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
+	// sort stack b
+	ft_sortb_section(stack_a, stack_b, sort_10);
+	
+	// 1 eight sorted
+
+	half = ft_lstsize_d_lst(*stack_a) / 4;
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
+	
+	half = ft_lstsize_d_lst(*stack_b) / 2;
+	while (ft_lstsize_d_lst(*stack_b) > half)
+	{
+		if (*((*stack_b)->content) >= (half * 3))
+			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
+	}
+	// sort stack b
+	ft_sortb_section(stack_a, stack_b, sort_10);
+
+	// 3 sixteenth sorted
+
 	half = ft_lstsize_d_lst(*stack_a) / 4;
 	while (*((*stack_a)->content) < half)
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 	// sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
-	
-	
-	// quarter sorted
 
+	// 1 quarter sorted
 
 	half = ft_lstsize_d_lst(*stack_a) / 2;
-	while (*((*stack_a)->content) < half)
+	while (ft_lstsize_d_lst(*stack_a) > (half + (half / 2)))
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-
-	// transfer half quarter of b to stack a
+	
 	size = ft_lstsize_d_lst(*stack_b);
 	half = size / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
@@ -1574,73 +1607,24 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	// sort b
-	ft_sortb_section(stack_a, stack_b, sort_10);
-	// transfer half quarter of a to stack b
-	half = ft_lstsize_d_lst(*stack_a) / 2;
-	while (*((*stack_a)->content) < half)
-		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	// sort b
+	while (ft_lstsize_d_lst(*stack_b) > half / 2)
+	{
+		if (*((*stack_b)->content) >= (size + (half / 2)))
+			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
+		else
+			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
+	}
+	// sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 	
-	
-	// half sorted
+	// 5 sixteenth sorted
 
 
-	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	
-	// transfer biggest quarter of stack b to stack a 
-	half = ft_lstsize_d_lst(*stack_b) / 2;
-	while (ft_lstsize_d_lst(*stack_b) > half)
-	{
-		if (*((*stack_b)->content) >= (half * 3))
-			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
-		else
-			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
-	}
-	// transfer half quarter of b to stack a
-	size = half;
-	half = ft_lstsize_d_lst(*stack_b) / 2;
-	while (ft_lstsize_d_lst(*stack_b) > half)
-	{
-		if (*((*stack_b)->content) >= (size * 2) + half)
-			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
-		else
-			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
-	}
-	// sort b
-	ft_sortb_section(stack_a, stack_b, sort_10);
-	size = (ft_lstsize_d_lst(*stack_a) / 4) * 3;
-	// transfer half quarter of a to stack b
-	while (*((*stack_a)->content) < size)
-		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	// sort b
-	ft_sortb_section(stack_a, stack_b, sort_10);
-	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	
-	size = ft_lstsize_d_lst(*stack_b);
-	half = size / 2;
-	while (ft_lstsize_d_lst(*stack_b) > half)
-	{
-		if (*((*stack_b)->content) >= (size * 3) + half)
-			ft_update_sort_score(sort_10, "3", stack_a, stack_b);
-		else
-			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
-	}
-	// sort b
-	ft_sortb_section(stack_a, stack_b, sort_10);
-	
-	while (*((*stack_a)->content) != 0)
-	{
-		if (*((*stack_a)->content) == *(ft_lstlast_d_lst(*stack_a)->content) + 1)
-			ft_update_sort_score(sort_10, "5", stack_a, stack_b);
-		else
-			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	}
-	// sort b
-	ft_sortb_section(stack_a, stack_b, sort_10);
+	// Sorted
+	ft_print_linked_list(*stack_a);
+	printf("---\n");
+	ft_print_linked_list(*stack_b);
+	printf("--------\n");
 }
 
 // free split argv[1] strings
@@ -1732,7 +1716,84 @@ void ft_print_move(char a)
 		printf("rrb\n");
 }
 
-//gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
+// (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
+int ft_count_dmoves(char *str)
+{
+	int i;
+	int times;
+
+	times = 0;
+	i = 0;
+	while (str[i+1])
+	{
+		if ((str[i] == '1' && str[i+1] == '2') || (str[i] == '2' && str[i+1] == '1'))
+		{
+			times++;
+			i++;
+		}
+		else if ((str[i] == '5' && str[i+1] == '6') || (str[i] == '6' && str[i+1] == '5'))
+		{
+			times++;
+			i++;
+		}
+		else if ((str[i] == '7' && str[i+1] == '8') || (str[i] == '8' && str[i+1] == '7'))
+		{
+			times++;
+			i++;
+		}
+		i++;
+	}
+	return (times);
+}
+
+char *ft_edit_movestr(int times, char *str)
+{
+	char *mem;
+	int i;
+	int j;
+
+	if (!times)
+		return (str);
+	mem = malloc(sizeof(char) * (ft_strlen(str) - times));
+	i = 0;
+	j = 0;
+	while (str[i+1])
+	{
+		if ((str[i] == '1' && str[i+1] == '2') || (str[i] == '2' && str[i+1] == '1'))
+		{
+			mem[j] = 'a';
+			j++;
+			i++;
+		}
+		else if ((str[i] == '5' && str[i+1] == '6') || (str[i] == '6' && str[i+1] == '5'))
+		{
+			mem[j] = 'b';
+			i++;
+			j++;
+		}
+		else if ((str[i] == '7' && str[i+1] == '8') || (str[i] == '8' && str[i+1] == '7'))
+		{
+			mem[j] = 'c';
+			i++;
+			j++;
+		}
+		else
+		{
+			mem[j] = str[i];
+			j++;
+		}
+		i++;
+		if(!str[i])
+			break ;
+	}
+	if (str[i])
+		mem[j] = str[i];
+	mem[j] = '\0';
+	free(str);
+	return (mem);
+}
+
+// gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	s_sort **sort_scores;
@@ -1773,20 +1834,25 @@ int main (int argc, char **argv)
 	// Sorting lists
 	ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
 	ft_test_algorithm(sort_scores[1], stack_a, ft_sort_stack8);
-	ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack9);
+	ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack10);
 	//ft_test_algorithm(sort_scores[2], stack_a, ft_sort_stack3);
 	//ft_test_algorithm(sort_scores[3], stack_a, ft_sort_stack4);
 	//ft_test_algorithm(sort_scores[4], stack_a, ft_sort_stack6);
 
-	printf("%i\n", (sort_scores[0])->n_moves);
-	printf("%i\n", (sort_scores[1])->n_moves);
-	printf("%i\n", (sort_scores[2])->n_moves);
+	if (ft_count_dmoves(sort_scores[1]->moves_str))
+		sort_scores[1]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[1]->moves_str), sort_scores[1]->moves_str);
+	(sort_scores[1])->n_moves = ft_strlen(sort_scores[1]->moves_str);
+	if (ft_count_dmoves(sort_scores[2]->moves_str))
+		sort_scores[2]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[2]->moves_str), sort_scores[2]->moves_str);
+	(sort_scores[2])->n_moves = ft_strlen(sort_scores[2]->moves_str);
+	printf("%i ", (sort_scores[0])->n_moves);
+	printf("%i ", (sort_scores[1])->n_moves);
+	printf("%i ", (sort_scores[2])->n_moves);
 	//printf("%i\n", (sort_scores[3])->n_moves);
 	//printf("%i\n", (sort_scores[4])->n_moves);
 	//printf("%i\n", (sort_scores[5])->n_moves);
 
 	printf("%i\n", ft_compare_algorithm_scores(sort_scores, 0));
-
 	// free lists
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);
