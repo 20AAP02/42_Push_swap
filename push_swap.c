@@ -1520,7 +1520,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 
 	ft_make_range(stack_a, stack_b);
 
-	// transfer smallest half of the list to stack b
+	// (1) 
 	half = ft_lstsize_d_lst(*stack_a) / 2;
 	while (ft_lstsize_d_lst(*stack_a) != half)
 	{
@@ -1529,7 +1529,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "5", stack_a, stack_b);
 	}
-	// transfer biggest quarter of stack b to stack a
+	// (2) 
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
@@ -1538,7 +1538,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	// transfer half quarter of b to stack a
+	// (3) 
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
@@ -1547,7 +1547,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-
+	// (4)
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
@@ -1556,23 +1556,26 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	// sort stack b
+	
+	// (5) sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 	
 	// 1 sixteenth sorted
 
+    // (6)
 	half = ft_lstsize_d_lst(*stack_a) / 8;
 	while (*((*stack_a)->content) < half)
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	// sort stack b
+	// (7) sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 	
 	// 1 eight sorted
 
+	// (8)
 	half = ft_lstsize_d_lst(*stack_a) / 4;
 	while (*((*stack_a)->content) < half)
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	
+	// (9)
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
@@ -1581,7 +1584,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	// sort stack b
+	// (10) sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 
 	// 3 sixteenth sorted
