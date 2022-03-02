@@ -771,18 +771,18 @@ void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
 	size = ft_lstsize_d_lst(*stack_a);
 	while (ft_lstsize_d_lst(*stack_a) > size / 2)
 	{
-		if (*((*stack_a)->content) < size / 2)
+		if (*((*stack_a)->content) <= size / 2)
 			ft_update_sort_score(sort_7, "4", stack_a, stack_b);
 		else
 			ft_update_sort_score(sort_7, "5", stack_a, stack_b);
 	}
 	ft_sortb_section(stack_a, stack_b, sort_7);
-	while (ft_lstsize_d_lst(*stack_a) > size / 2)
+	while (ft_lstsize_d_lst(*stack_a) != 0)
 		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
 	ft_sortb_section(stack_a, stack_b, sort_7);
 }
 
-// sorting algorithm for lists of 100 numbers (function that devides the list in 4) 
+// sorting algorithm for lists of 100 numbers (function that devides the list in 4)
 void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 {
 	int half;
@@ -791,7 +791,7 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 	half = ft_lstsize_d_lst(*stack_a) / 2;
 	while (ft_lstsize_d_lst(*stack_a) != half)
 	{
-		if (*((*stack_a)->content) < half)
+		if (*((*stack_a)->content) <= half)
 			ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 		else
 			ft_update_sort_score(sort_8, "5", stack_a, stack_b);
@@ -815,12 +815,13 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	}
 	ft_sortb_section(stack_a, stack_b, sort_8);
-
+	
 	// half sorted
 
 	while (*((*stack_a)->content) != 0)
 		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	half = ft_lstsize_d_lst(*stack_b) / 2;
+	printf("%i\n", half);
 	while (ft_lstsize_d_lst(*stack_b) > half)
 	{
 		if (*((*stack_b)->content) >= (half * 3))
@@ -847,7 +848,7 @@ void ft_sort_stack9(d_list **stack_a, d_list **stack_b, s_sort *sort_9)
 
 	// transfer smallest half of the list to stack b
 	half = ft_lstsize_d_lst(*stack_a) / 2;
-	while (ft_lstsize_d_lst(*stack_a) != half)
+	while (ft_lstsize_d_lst(*stack_a) > half)
 	{
 		if (*((*stack_a)->content) < half)
 			ft_update_sort_score(sort_9, "4", stack_a, stack_b);
@@ -1231,7 +1232,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 
 	// Sorted
 }
-
 
 // --------------------------------------
 
