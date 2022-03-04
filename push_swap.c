@@ -1264,7 +1264,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		ft_sortb_section(stack_a, stack_b, sort_10);
 	
 	ft_print_linked_list(*stack_a);
-	// UNTIL HERE ITS SORTED --------------------------------------------------------------------
+	// UNTIL HERE ITS SORTED (498)--------------------------------------------------------------------
 	// 5 eights sorted
 	
 	// (31)
