@@ -1024,30 +1024,15 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	int check;
 
 	ft_make_range(stack_a, stack_b);
-	// (1) 
-	check = 0;
-	if (ft_lstsize_d_lst(*stack_a) % 2)
-		check = 1;
+	// (1)
 	half = ft_lstsize_d_lst(*stack_a) / 2;
 	while (ft_lstsize_d_lst(*stack_a) > half)
 	{
-		if (check)
-		{
-			if (*((*stack_a)->content) <= half)
-				ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-			else
-				ft_update_sort_score(sort_10, "5", stack_a, stack_b);
-		}
+		if (*((*stack_a)->content) < half)
+			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 		else
-		{
-			if (*((*stack_a)->content) < half)
-				ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-			else
-				ft_update_sort_score(sort_10, "5", stack_a, stack_b);
-		}
+			ft_update_sort_score(sort_10, "5", stack_a, stack_b);
 	}
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
 	// (2) 
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
@@ -1057,8 +1042,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
 	// (3) 
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
@@ -1068,8 +1051,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
 	// (4)
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
@@ -1079,63 +1060,23 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		else
 			ft_update_sort_score(sort_10, "6", stack_a, stack_b);
 	}
-	half = ft_lstsize_d_lst(*stack_b);
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
 	// (5) sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 	
 	// 1 sixteenth sorted
 
     // (6)
-	check = (ft_lstsize_d_lst(*stack_a) - (ft_lstsize_d_lst(*stack_a) / 2));
-	check = (check - (check / 2));
-	check = (check - (check / 2));
-	check = (check - (check / 2));
-	if (check == half)
-		check = 1;
-	else
-		check = 0;
 	half = ft_lstsize_d_lst(*stack_a) / 8;
-	if (check)
-	{
-		while (*((*stack_a)->content) <= half)
-			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-		check = 1;
-	}
-	else
-	{
-		while (*((*stack_a)->content) < half)
-			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-		check = 0;
-	}
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 	// (7) sort stack b
 	ft_sortb_section(stack_a, stack_b, sort_10);
 	
 	// 1 eight sorted
 	// (8)
-	check = (ft_lstsize_d_lst(*stack_a) - (ft_lstsize_d_lst(*stack_a) / 2));
-	check = (check - (check / 2));
-	check = (check - (check / 2));
-	if (check == half)
-		check = 1;
-	else
-		check = 0;
 	half = ft_lstsize_d_lst(*stack_a) / 4;
-	if (check)
-	{
-		while (*((*stack_a)->content) <= half)
-			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	}
-	else
-	{
-		while (*((*stack_a)->content) < half)
-			ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	}
-	printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
-	ft_print_linked_list(*stack_b);
+	while (*((*stack_a)->content) < half)
+		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 	// (9)
 	half = ft_lstsize_d_lst(*stack_b) / 2;
 	while (ft_lstsize_d_lst(*stack_b) > half)
