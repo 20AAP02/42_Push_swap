@@ -45,7 +45,7 @@ void ft_rr(d_list **stack_a, d_list **stack_b);
 void ft_rra(d_list **stack);
 void ft_rrb(d_list **stack);
 void ft_rrr(d_list **stack_a, d_list **stack_b);
-int ft_list_sorted(d_list *stack);
+int ft_list_sorted(d_list *stack, int j);
 int ft_str_arr_size(char **argv);
 int ft_check_parameters(int argc, char **argv, int k);
 d_list **ft_collect_integers(int argc, char **argv, int k);
@@ -491,18 +491,22 @@ void ft_rrr(d_list **stack_a, d_list **stack_b)
 }
 
 // Checker function (checks if stack_a is sorted)
-int ft_list_sorted(d_list *stack)
+int ft_list_sorted(d_list *stack, int j)
 {
 	int i;
 
 	i = 0;
 	if (!stack)
 		return (2);
+	if (j)
+		while (*(stack->content) != 0)
+			stack = stack->next;
 	while (stack->next)
 	{
-		if (*(stack->content) > *(stack->next->content))
+		if (*(stack->content) != (*(stack->next->content) - 1))
 		{
-			printf("-- ( %i ) --\n", i);
+			if (j)
+				printf("-- ( %i, %i ) --\n", *(stack->content), *(stack->next->content));
 			return (0);
 		}
 		stack = stack->next;
@@ -652,14 +656,14 @@ void ft_sort_stack0(d_list **stack_a, d_list **stack_b, s_sort *sort_0)
 		i = 0;
 		while (i < ft_lstsize_d_lst(*stack_a))
 		{
-			if (*((*stack_a)->content) < *((*stack_a)->next->content) && !ft_list_sorted(*stack_a))
+			if (*((*stack_a)->content) < *((*stack_a)->next->content) && !ft_list_sorted(*stack_a, 0))
 				ft_update_sort_score(sort_0, "1", stack_a, stack_b);
-			if (ft_list_sorted(*stack_a))
+			if (ft_list_sorted(*stack_a, 0))
 				break ;
 			ft_update_sort_score(sort_0, "5", stack_a, stack_b);
 			i++;
 		}
-		if (ft_list_sorted(*stack_a))
+		if (ft_list_sorted(*stack_a, 0))
 			break ;
 		ft_update_sort_score(sort_0, "4", stack_a, stack_b);
 	}
@@ -751,7 +755,7 @@ void ft_sort_stack_less5(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
 	d_list *mem;
 	int pos;
 
-	if (ft_list_sorted(*stack_a))
+	if (ft_list_sorted(*stack_a, 0))
 		return ;
 	while (ft_lstsize_d_lst(*stack_a) > 3)
 	{
@@ -1175,7 +1179,9 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	// (18) sort stack b
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_10);
+	
 	// 3 eights sorted
+	
 	// (19)
 	half = ft_lstsize_d_lst(*stack_a);
 	while (*((*stack_a)->content) < (half / 2))
@@ -1195,6 +1201,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	// (21) sort stack b
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_10);
+	
 	// 7 sixteenth sorted
 
 	// (22)
@@ -1211,7 +1218,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	// (24)
 	while(*((*stack_a)->content) != 0)
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-
 	// (25)
 	half = ft_lstsize_d_lst(*stack_b);
 	i = 0;
@@ -1254,22 +1260,25 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_10);
 	
+	//ft_print_linked_list(*stack_a);
+	//printf("-- %i --\n", ft_list_sorted(*stack_a, 1));
+	
 	// 9 sixteenth sorted
 	
 	// (29)
 	while(*((*stack_a)->content) < ((half * 2) + (half / 2)))
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
+
 	// (30) sort stack b
+	//printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
+
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_10);
-	
-	ft_print_linked_list(*stack_a);
-	// UNTIL HERE ITS SORTED (498)--------------------------------------------------------------------
-	// 5 eights sorted
-	
+
 	// (31)
 	while(*((*stack_a)->content) < (half * 3))
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
+	//ft_print_linked_list(*stack_b);
 	// (32)
 	i = 0;
 	while (ft_lstsize_d_lst(*stack_b) > half / 4)
@@ -1369,7 +1378,7 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 
 	// Sorted
 	//ft_print_linked_list(*stack_a);
-	//printf("-- %i --\n", ft_list_sorted(*stack_a));
+	printf("-- %i --\n", ft_list_sorted(*stack_a, 1));
 }
 
 // --------------------------------------
@@ -1942,20 +1951,20 @@ int main (int argc, char **argv)
 		x++;
 	}
 	
-	if (!ft_list_sorted(*stack_a))
+	if (!ft_list_sorted(*stack_a, 0))
 	{
 		if (ft_lstsize_d_lst(*stack_a) <= 3)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less3);
 		else if (ft_lstsize_d_lst(*stack_a) < 40)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less5);
 		else if (ft_lstsize_d_lst(*stack_a) <= 60)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack10);
-		else if (ft_lstsize_d_lst(*stack_a) <= 250)
+			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
+		else if (ft_lstsize_d_lst(*stack_a) <= 499)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack8);
-		else if (ft_lstsize_d_lst(*stack_a) <= 500)
+		else if (ft_lstsize_d_lst(*stack_a) == 500)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack10);
 	}
-	if (!ft_list_sorted(*stack_a))
+	if (!ft_list_sorted(*stack_a, 0))
 	{
 		x = 0;
 		while (x < 1)
