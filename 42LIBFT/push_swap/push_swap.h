@@ -21,7 +21,7 @@ typedef struct s_sort
 }	s_sort;
 
 size_t	ft_strlen(const char *s);
-double ft_atoi(const char *str);
+double ft_atoi_dbl(const char *str);
 void ft_print_move(char a);
 char	*ft_strjoin(char const *s1, char const *s2);
 static int	ft_issep(char s, char c);
