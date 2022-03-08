@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <push_swap.h>
+#include "libft.h"
+#include "../push_swap/push_swap.h"
 
 static int	is_set(char c, char const *set)
 {

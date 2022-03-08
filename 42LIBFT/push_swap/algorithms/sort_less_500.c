@@ -1,11 +1,10 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // sorting algorithm for lists of bigger or equal than 400 numbers (function that devides the list in 16)
 void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 {
 	int half;
-	int check;
 	int i;
 
 	ft_make_range(stack_a, stack_b);

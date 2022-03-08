@@ -24,10 +24,6 @@ size_t	ft_strlen(const char *s);
 double ft_atoi_dbl(const char *str);
 void ft_print_move(char a);
 char	*ft_strjoin(char const *s1, char const *s2);
-static int	ft_issep(char s, char c);
-static int	countwords(char const *s, char c);
-static void	ft_cpywords(char *dest, char *src, char c);
-static void	do_the_split(char **matriz, char *s, char c);
 char	**ft_split(char const *s, char c);
 d_list *ft_lstnew_d_lst(void *content);
 void ft_lstadd_front_d_lst(d_list **lst, d_list *new);
@@ -35,7 +31,6 @@ int ft_lstsize_d_lst(d_list *lst);
 d_list *ft_lstlast_d_lst(d_list *lst);
 void ft_lstadd_back_d_lst(d_list **lst, d_list *new);
 void ft_lstclear_d_lst(d_list **lst);
-void	ft_lstdelone(d_list *lst, void (*del)(void*));
 void ft_sa(d_list *stack);
 void ft_sb(d_list *stack);
 void ft_ss(d_list *stack_a, d_list *stack_b);
@@ -88,5 +83,7 @@ void ft_print_move(char a);
 int ft_count_dmoves(char *str);
 char *ft_edit_movestr(int times, char *str);
 void ft_small_half_to_b(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
+void ft_small_quarter_to_b(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
+void ft_big_quarter_to_a(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
 
 #endif

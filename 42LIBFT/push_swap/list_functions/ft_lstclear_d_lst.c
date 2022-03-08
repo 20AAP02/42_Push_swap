@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // ft_lstclear_d_lst
 void ft_lstclear_d_lst(d_list **lst)

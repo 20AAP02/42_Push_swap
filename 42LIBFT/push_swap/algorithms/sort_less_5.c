@@ -1,11 +1,9 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // sort algrithm for lists of 5 numbers
 void ft_sort_stack_less5(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
 {
-	int max;
-	d_list *mem;
 	int pos;
 
 	if (ft_list_sorted(*stack_a, 0))

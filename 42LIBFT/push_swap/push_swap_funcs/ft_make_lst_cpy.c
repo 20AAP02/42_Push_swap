@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // Make a copy of a linked list
 d_list **ft_make_lst_cpy(d_list **stack_a_cpy, d_list *stack_a_orig)

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <push_swap.h>
+#include "libft.h"
+#include "../push_swap/push_swap.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 void ft_free_sort_scores(s_sort **sort_scores)
 {

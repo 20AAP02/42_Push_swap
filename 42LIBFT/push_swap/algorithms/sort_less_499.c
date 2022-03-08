@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // sorting algorithm for lists of 100 numbers (function that devides the list in 4)
 void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)

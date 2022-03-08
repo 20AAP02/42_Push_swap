@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 char *ft_edit_movestr(int times, char *str)
 {

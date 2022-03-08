@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // simplify list of ints to [0, N]
 void ft_make_range(d_list **stack_a, d_list **stack_b)
@@ -9,6 +9,7 @@ void ft_make_range(d_list **stack_a, d_list **stack_b)
 	int n;
 	int i;
 
+	stack_a_cpy = NULL;
 	stack_a_cpy = ft_make_lst_cpy(stack_a_cpy, *stack_a);
 	while (ft_lstsize_d_lst(*stack_a))
 	{

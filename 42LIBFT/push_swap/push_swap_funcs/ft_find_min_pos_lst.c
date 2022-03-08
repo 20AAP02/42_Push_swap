@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // function to find position of the minimum number of the stack
 int ft_find_min_pos_lst(d_list *stack)

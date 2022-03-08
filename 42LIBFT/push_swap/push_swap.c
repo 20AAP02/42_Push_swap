@@ -1,12 +1,11 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../42_libft/libft.h"
+#include "push_swap.h"
 
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
 // gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
 	s_sort **sort_scores;
-	s_sort **ex;
 	int x;
 
 	d_list **stack_a;

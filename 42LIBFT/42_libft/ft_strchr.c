@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <push_swap.h>
+#include "libft.h"
+#include "../push_swap/push_swap.h"
 
 char	*ft_strchr(const char *s, int c)
 {

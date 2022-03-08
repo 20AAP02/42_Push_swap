@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // function to collect the parameters of the stack_a
 d_list **ft_collect_integers(int argc, char **argv, int k)

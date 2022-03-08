@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:08:54 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/07 16:07:42 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:00:15 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <push_swap.h>
+#include "libft.h"
+#include "../push_swap/push_swap.h"
 
 int	ft_isdigit(int c)
 {

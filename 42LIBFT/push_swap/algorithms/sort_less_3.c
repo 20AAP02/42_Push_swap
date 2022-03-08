@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // sort algrithm for lists of 3 numbers
 void ft_sort_stack_less3(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
@@ -19,7 +19,7 @@ void ft_sort_stack_less3(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
 		mem3 = *((*stack_a)->next->next->content);
 
 		if (mem1 > mem2 && mem1 < mem3)
-			ft_update_sort_score(sort_1, "1", stack_a, stack_a);
+			ft_update_sort_score(sort_1, "1", stack_a, stack_b);
 		else if (mem1 > mem2 && mem1 > mem3 && mem2 > mem3)
 			ft_update_sort_score(sort_1, "17", stack_a, stack_a);
 		else if (mem1 > mem2 && mem1 > mem3 && mem2 < mem3)

@@ -1,5 +1,5 @@
-#include <libft.h>
-#include <push_swap.h>
+#include "../../42_libft/libft.h"
+#include "../push_swap.h"
 
 // Checker function (checks if stack_a is sorted)
 int ft_list_sorted(d_list *stack, int j)
