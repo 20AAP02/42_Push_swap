@@ -62,7 +62,12 @@ int main (int argc, char **argv)
 			(sort_scores[x])->n_moves = ft_strlen(sort_scores[x]->moves_str);
 			x++;
 		}
-		printf("-- %i --\n", (sort_scores[0])->n_moves);
+		x = 0;
+		while (sort_scores[0]->moves_str[x])
+		{
+			ft_print_move(sort_scores[0]->moves_str[x]);
+			x++;
+		}
 	}
 	
 	if (ft_check_parameters(argc, argv, 0) == 5)

@@ -4,14 +4,13 @@ LIB1	= ar -rcs
 LIB2	= ranlib
 RM	= rm -f
 
-NAME	= libf.a
+NAME	= libft.a
 
 INCLUDE1	= 42_libft/
 INCLUDE2	= push_swap/
 
 LIBFT	= 42_libft/ft_isascii.c 42_libft/ft_isprint.c 42_libft/ft_isalpha.c 42_libft/ft_isdigit.c 42_libft/ft_isalnum.c \
 					42_libft/ft_tolower.c 42_libft/ft_toupper.c 42_libft/ft_strlen.c 42_libft/ft_strlcpy.c 42_libft/ft_strlcat.c \
-					42_libft/ft_strchr.c 42_libft/ft_strrchr.c 42_libft/ft_strnstr.c 42_libft/ft_strncmp.c 42_libft/ft_atoi.c \
 					42_libft/ft_memset.c 42_libft/ft_bzero.c 42_libft/ft_memcpy.c 42_libft/ft_memmove.c 42_libft/ft_striteri.c \
 					42_libft/ft_memchr.c 42_libft/ft_memcmp.c 42_libft/ft_strdup.c 42_libft/ft_calloc.c 42_libft/ft_itoa.c \
 					42_libft/ft_putchar_fd.c 42_libft/ft_putstr_fd.c 42_libft/ft_putendl_fd.c 42_libft/ft_putnbr_fd.c \
@@ -40,15 +39,14 @@ PUSH_SWAP	= push_swap/algorithms/sort_less_3.c push_swap/algorithms/sort_less_5.
 					push_swap/push_swap_funcs/ft_print_linked_list.c push_swap/push_swap_funcs/ft_print_move.c \
 					push_swap/push_swap_funcs/ft_small_half_to_b.c push_swap/push_swap_funcs/ft_small_quarter_to_b.c \
 					push_swap/push_swap_funcs/ft_sortb_section.c push_swap/push_swap_funcs/ft_test_algorithm.c \
-					push_swap/push_swap_funcs/ft_update_sort_score.c
+					push_swap/push_swap_funcs/ft_update_sort_score.c push_swap/push_swap_funcs/ft_str_arr_size.c
 PUSH_SWAP_OBJ	= $(PUSH_SWAP:.c=.o)
 
-all:	$(NAME) clean
+all:	$(NAME) fclean
 
 $(NAME):	$(LIB_OBJ) $(PUSH_SWAP_OBJ) $(INCLUDE1) $(INCLUDE2)
 	$(LIB1) $(NAME) $(LIB_OBJ) $(PUSH_SWAP_OBJ)
 	$(LIB2) $(NAME)
-
 
 .c.o:
 	$(CC) $(CFLAGS) -I$(INCLUDE1) -I$(INCLUDE2) -c $< -o $(<:.c=.o)

@@ -348,6 +348,4 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		ft_sortb_section(stack_a, stack_b, sort_10);
 
 	// Sorted
-	//ft_print_linked_list(*stack_a);
-	printf("-- %i --\n", ft_list_sorted(*stack_a, 1));
 }

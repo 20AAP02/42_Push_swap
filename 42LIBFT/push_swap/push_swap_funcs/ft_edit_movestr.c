@@ -1,6 +1,7 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 
+// (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
 char *ft_edit_movestr(int times, char *str)
 {
 	char *mem;
