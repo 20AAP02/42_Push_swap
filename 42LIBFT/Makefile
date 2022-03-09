@@ -42,7 +42,7 @@ PUSH_SWAP	= push_swap/algorithms/sort_less_3.c push_swap/algorithms/sort_less_5.
 					push_swap/push_swap_funcs/ft_update_sort_score.c push_swap/push_swap_funcs/ft_str_arr_size.c
 PUSH_SWAP_OBJ	= $(PUSH_SWAP:.c=.o)
 
-all:	$(NAME) fclean
+all:	$(NAME) clean
 
 $(NAME):	$(LIB_OBJ) $(PUSH_SWAP_OBJ) $(INCLUDE1) $(INCLUDE2)
 	$(LIB1) $(NAME) $(LIB_OBJ) $(PUSH_SWAP_OBJ)

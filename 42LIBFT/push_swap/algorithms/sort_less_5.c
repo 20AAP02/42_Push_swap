@@ -6,7 +6,7 @@ void ft_sort_stack_less5(d_list **stack_a, d_list **stack_b, s_sort *sort_2)
 {
 	int pos;
 
-	if (ft_list_sorted(*stack_a, 0))
+	if (ft_list_sorted(*stack_a))
 		return ;
 	while (ft_lstsize_d_lst(*stack_a) > 3)
 	{

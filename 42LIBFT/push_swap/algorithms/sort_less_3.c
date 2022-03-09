@@ -8,6 +8,7 @@ void ft_sort_stack_less3(d_list **stack_a, d_list **stack_b, s_sort *sort_1)
 	int mem2;
 	int mem3;
 
+	ft_make_range(stack_a, stack_b);
 	if (ft_lstsize_d_lst(*stack_a) == 2)
 		ft_update_sort_score(sort_1, "1", stack_a, stack_a);
 	else if (ft_lstsize_d_lst(*stack_a) > 3)

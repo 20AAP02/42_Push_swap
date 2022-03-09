@@ -1,5 +1,5 @@
-#include "../42_libft/libft.h"
-#include "push_swap.h"
+#include "42_libft/libft.h"
+#include "push_swap/push_swap.h"
 
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
 // gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
@@ -39,7 +39,7 @@ int main (int argc, char **argv)
 		x++;
 	}
 	
-	if (!ft_list_sorted(*stack_a, 0))
+	if (!ft_list_sorted(*stack_a))
 	{
 		if (ft_lstsize_d_lst(*stack_a) <= 3)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less3);
@@ -52,7 +52,7 @@ int main (int argc, char **argv)
 		else if (ft_lstsize_d_lst(*stack_a) == 500)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack10);
 	}
-	if (!ft_list_sorted(*stack_a, 0))
+	if (!ft_list_sorted(*stack_a))
 	{
 		x = 0;
 		while (x < 1)

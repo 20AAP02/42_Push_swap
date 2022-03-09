@@ -42,7 +42,7 @@ void ft_rr(d_list **stack_a, d_list **stack_b);
 void ft_rra(d_list **stack);
 void ft_rrb(d_list **stack);
 void ft_rrr(d_list **stack_a, d_list **stack_b);
-int ft_list_sorted(d_list *stack, int j);
+int ft_list_sorted(d_list *stack);
 int ft_str_arr_size(char **argv);
 int ft_check_parameters(int argc, char **argv, int k);
 d_list **ft_collect_integers(int argc, char **argv, int k);
