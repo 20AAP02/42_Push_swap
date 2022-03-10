@@ -2,6 +2,7 @@
 #include "push_swap/push_swap.h"
 
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
+// gcc push_swap.c libft.a && arg=$(python3 ../rando.py 300); ./a.out $arg | ./checker_Mac $arg && ./a.out $arg | wc -l
 // gcc *.c && arg=$(python3 rando.py 100); ./a.out $arg
 int main (int argc, char **argv)
 {
@@ -54,29 +55,27 @@ int main (int argc, char **argv)
 	}
 	if (!ft_list_sorted(*stack_a))
 	{
-		x = 0;
+		/*x = 0;
 		while (x < 1)
 		{
 			if (ft_count_dmoves(sort_scores[x]->moves_str))
 				sort_scores[x]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[x]->moves_str), sort_scores[x]->moves_str);
 			(sort_scores[x])->n_moves = ft_strlen(sort_scores[x]->moves_str);
 			x++;
-		}
+		}*/
 		x = 0;
 		while (sort_scores[0]->moves_str[x])
 		{
 			ft_print_move(sort_scores[0]->moves_str[x]);
 			x++;
 		}
-	}
-	
+	}	
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 
 	// free sort_scores
 	ft_free_sort_scores(sort_scores);
-
 	return (0);
 }
 

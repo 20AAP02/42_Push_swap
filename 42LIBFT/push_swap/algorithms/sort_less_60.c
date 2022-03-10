@@ -13,4 +13,5 @@ void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
 	while (ft_lstsize_d_lst(*stack_a) != 0)
 		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
 	ft_sortb_section(stack_a, stack_b, sort_7);
+	//printf("-------------------- %i ------------------\n", ft_list_sorted(*stack_a));
 }
