@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // Function to check if parameters have no errors (too many lines)
 int ft_check_parameters(int argc, char **argv, int k)

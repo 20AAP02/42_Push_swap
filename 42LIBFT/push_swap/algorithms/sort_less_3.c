@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // sort algrithm for lists of 3 numbers
 void ft_sort_stack_less3(d_list **stack_a, d_list **stack_b, s_sort *sort_1)

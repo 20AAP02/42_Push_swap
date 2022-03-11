@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // simplify list of ints to [0, N]
 void ft_make_range(d_list **stack_a, d_list **stack_b)

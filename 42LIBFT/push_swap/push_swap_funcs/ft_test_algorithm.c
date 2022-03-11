@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // function to test algorithms whithout having to create a stack for each algorithm
 void ft_test_algorithm(s_sort *sort_s, d_list **stack_a, void (*f)(d_list**, d_list**, s_sort*))

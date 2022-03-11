@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "../push_swap/push_swap.h"
+#include "../ft_printf/ft_printf.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

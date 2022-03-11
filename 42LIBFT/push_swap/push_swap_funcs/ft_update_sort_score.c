@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // function to update sort score
 void ft_update_sort_score(s_sort *sort_s, char *move, d_list **stack_a, d_list **stack_b)

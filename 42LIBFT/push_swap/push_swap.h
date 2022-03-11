@@ -85,5 +85,6 @@ char *ft_edit_movestr(int times, char *str);
 void ft_small_half_to_b(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
 void ft_small_quarter_to_b(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
 void ft_big_quarter_to_a(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value);
+void ft_radix_sort(d_list **stack_a, d_list **stack_b, s_sort *sort_p);
 
 #endif

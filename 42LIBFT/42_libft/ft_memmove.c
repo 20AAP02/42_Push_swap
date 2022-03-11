@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "../push_swap/push_swap.h"
+#include "../ft_printf/ft_printf.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

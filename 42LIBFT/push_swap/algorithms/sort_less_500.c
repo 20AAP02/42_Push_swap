@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // sorting algorithm for lists of bigger or equal than 400 numbers (function that devides the list in 16)
 void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
@@ -238,7 +239,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
 
 	// (30) sort stack b
-	//printf("-- %i --\n", ft_lstsize_d_lst(*stack_b));
 
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_10);
@@ -246,7 +246,6 @@ void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10)
 	// (31)
 	while(*((*stack_a)->content) < (half * 3))
 		ft_update_sort_score(sort_10, "4", stack_a, stack_b);
-	//ft_print_linked_list(*stack_b);
 	// (32)
 	i = 0;
 	while (ft_lstsize_d_lst(*stack_b) > half / 4)

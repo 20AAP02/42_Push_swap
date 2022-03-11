@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 int ft_calc_fastest_number(d_list **stack_b, int min, int max)
 {

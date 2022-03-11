@@ -1,5 +1,6 @@
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
+#include "../../ft_printf/ft_printf.h"
 
 // ft_atoi_dbl but with doubles
 double ft_atoi_dbl(const char *str)

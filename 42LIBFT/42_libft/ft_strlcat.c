@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "../push_swap/push_swap.h"
+#include "../ft_printf/ft_printf.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {

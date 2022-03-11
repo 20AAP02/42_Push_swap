@@ -6,8 +6,14 @@ RM	= rm -f
 
 NAME	= libft.a
 
+INCLUDE0	= ft_printf/
 INCLUDE1	= 42_libft/
 INCLUDE2	= push_swap/
+
+FT_PRINTF	= ft_printf/ft_printf_functions0.c ft_printf/ft_printf_functions1.c ft_printf/ft_printf_functions2.c \
+					ft_printf/ft_printf_functions3.c ft_printf/ft_printf_functions4.c ft_printf/ft_printf_functions5.c \
+					ft_printf/ft_printf_functions6.c ft_printf/ft_printf.c
+PRINTF_OBJ	= $(FT_PRINTF:.c=.o)
 
 LIBFT	= 42_libft/ft_isascii.c 42_libft/ft_isprint.c 42_libft/ft_isalpha.c 42_libft/ft_isdigit.c 42_libft/ft_isalnum.c \
 					42_libft/ft_tolower.c 42_libft/ft_toupper.c 42_libft/ft_strlen.c 42_libft/ft_strlcpy.c 42_libft/ft_strlcat.c \
@@ -44,19 +50,37 @@ PUSH_SWAP_OBJ	= $(PUSH_SWAP:.c=.o)
 
 all:	$(NAME) clean
 
-$(NAME):	$(LIB_OBJ) $(PUSH_SWAP_OBJ) $(INCLUDE1) $(INCLUDE2)
-	$(LIB1) $(NAME) $(LIB_OBJ) $(PUSH_SWAP_OBJ)
+$(NAME):	compile $(PRINTF_OBJ) $(LIB_OBJ) $(PUSH_SWAP_OBJ) $(INCLUDE0) $(INCLUDE1) $(INCLUDE2)
+	$(LIB1) $(NAME) $(PRINTF_OBJ) $(LIB_OBJ) $(PUSH_SWAP_OBJ)
 	$(LIB2) $(NAME)
+	echo "Done"
+
+compile:
+	echo "Compiling everything..."
+compile_libft:
+	echo "Compiling libft..."
+compile_ft_printf:
+	echo "Compiling ft_printf..."
 
 .c.o:
-	$(CC) $(CFLAGS) -I$(INCLUDE1) -I$(INCLUDE2) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -I$(INCLUDE0) -I$(INCLUDE1) -I$(INCLUDE2) -c $< -o $(<:.c=.o)
 
 clean:
-	$(RM) $(LIB_OBJ) $(PUSH_SWAP_OBJ)
+	$(RM) $(LIB_OBJ) $(PUSH_SWAP_OBJ) $(PRINTF_OBJ)
 
 fclean:	clean
 	$(RM) $(NAME)
 
-libft: $(LIB_OBJ) $(INCLUDE1) clean
+l: libft clean
+
+f: ft_printf clean
+
+libft: compile_libft $(LIB_OBJ) $(INCLUDE1)
 	$(LIB1) $(NAME) $(LIB_OBJ)
 	$(LIB2) $(NAME)
+	echo "Done"
+
+ft_printf: compile_ft_printf $(PRINTF_OBJ) $(INCLUDE0)
+	$(LIB1) $(NAME) $(PRINTF_OBJ)
+	$(LIB2) $(NAME)
+	echo "Done"

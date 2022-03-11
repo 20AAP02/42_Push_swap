@@ -1,5 +1,6 @@
 #include "42_libft/libft.h"
 #include "push_swap/push_swap.h"
+#include "ft_printf/ft_printf.h"
 
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
 // gcc push_swap.c libft.a && arg=$(python3 ../rando.py 300); ./a.out $arg | ./checker_Mac $arg && ./a.out $arg | wc -l
@@ -13,13 +14,13 @@ int main (int argc, char **argv)
 	char **mem;
 	// Checking for parameters errors (1 - there are non integers) (2 - bigger than integer) (3 - to many arguments) (4 - there are duplicates)
 	if (ft_check_parameters(argc, argv, 0) && ft_check_parameters(argc, argv, 0) != 5)
-		return (printf("error\n"));
+		return (ft_printf("error\n"));
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		mem = ft_split(argv[1], ' ');
 	if (ft_check_parameters(argc, argv, 0) == 5 && ft_check_parameters(argc, mem, 1))
 	{
 		ft_free_split(mem);
-		return (printf("error\n"));
+		return (ft_printf("error\n"));
 	}
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		stack_a = ft_collect_integers(argc, mem, 0);
@@ -31,14 +32,9 @@ int main (int argc, char **argv)
 	sort_scores[1] = NULL;
 
 	// initialising sort_scores
-	x = 0;
-	while (x < 1)
-	{
-		sort_scores[x] = malloc(sizeof(s_sort));
-		(sort_scores[x])->n_moves = 0;
-		(sort_scores[x])->moves_str = NULL;
-		x++;
-	}
+	sort_scores[0] = malloc(sizeof(s_sort));
+	(sort_scores[0])->n_moves = 0;
+	(sort_scores[0])->moves_str = NULL;
 	
 	if (!ft_list_sorted(*stack_a))
 	{
@@ -48,27 +44,23 @@ int main (int argc, char **argv)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less5);
 		else if (ft_lstsize_d_lst(*stack_a) <= 60)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
-		else if (ft_lstsize_d_lst(*stack_a) <= 499)
+		else if (ft_lstsize_d_lst(*stack_a) <= 100)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack8);
+		else if (ft_lstsize_d_lst(*stack_a) <= 499)
+			ft_test_algorithm(sort_scores[0], stack_a, ft_radix_sort);
 		else if (ft_lstsize_d_lst(*stack_a) == 500)
 			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack10);
 	}
 	if (!ft_list_sorted(*stack_a))
 	{
+		/*
+		if (ft_count_dmoves(sort_scores[0]->moves_str))
+			sort_scores[0]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[0]->moves_str), sort_scores[0]->moves_str);
+		(sort_scores[0])->n_moves = ft_strlen(sort_scores[0]->moves_str);
+		*/
 		/*x = 0;
-		while (x < 1)
-		{
-			if (ft_count_dmoves(sort_scores[x]->moves_str))
-				sort_scores[x]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[x]->moves_str), sort_scores[x]->moves_str);
-			(sort_scores[x])->n_moves = ft_strlen(sort_scores[x]->moves_str);
-			x++;
-		}*/
-		x = 0;
 		while (sort_scores[0]->moves_str[x])
-		{
-			ft_print_move(sort_scores[0]->moves_str[x]);
-			x++;
-		}
+			ft_print_move(sort_scores[0]->moves_str[x++]);*/
 	}	
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);

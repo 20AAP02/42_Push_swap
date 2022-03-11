@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "../push_swap/push_swap.h"
+#include "../ft_printf/ft_printf.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
