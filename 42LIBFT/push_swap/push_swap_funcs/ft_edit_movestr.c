@@ -22,18 +22,6 @@ char *ft_edit_movestr(int times, char *str)
 			j++;
 			i++;
 		}
-		else if ((str[i] == '5' && str[i+1] == '6') || (str[i] == '6' && str[i+1] == '5'))
-		{
-			mem[j] = 'b';
-			i++;
-			j++;
-		}
-		else if ((str[i] == '7' && str[i+1] == '8') || (str[i] == '8' && str[i+1] == '7'))
-		{
-			mem[j] = 'c';
-			i++;
-			j++;
-		}
 		else
 		{
 			mem[j] = str[i];

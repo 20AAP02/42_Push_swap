@@ -16,16 +16,6 @@ int ft_count_dmoves(char *str)
 			times++;
 			i++;
 		}
-		else if ((str[i] == '5' && str[i+1] == '6') || (str[i] == '6' && str[i+1] == '5'))
-		{
-			times++;
-			i++;
-		}
-		else if ((str[i] == '7' && str[i+1] == '8') || (str[i] == '8' && str[i+1] == '7'))
-		{
-			times++;
-			i++;
-		}
 		i++;
 	}
 	return (times);
