@@ -53,14 +53,12 @@ int main (int argc, char **argv)
 	}
 	if (!ft_list_sorted(*stack_a))
 	{
-		/*
 		if (ft_count_dmoves(sort_scores[0]->moves_str))
 			sort_scores[0]->moves_str = ft_edit_movestr(ft_count_dmoves(sort_scores[0]->moves_str), sort_scores[0]->moves_str);
 		(sort_scores[0])->n_moves = ft_strlen(sort_scores[0]->moves_str);
-		*/
-		/*x = 0;
+		x = 0;
 		while (sort_scores[0]->moves_str[x])
-			ft_print_move(sort_scores[0]->moves_str[x++]);*/
+			ft_print_move(sort_scores[0]->moves_str[x++]);
 	}	
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);

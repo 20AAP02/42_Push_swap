@@ -28,10 +28,9 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 
 	// half sorted
 
+	half = ft_lstsize_d_lst(*stack_a);
 	while (*((*stack_a)->content) != 0)
 		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
-	printf("----- %i --------\n", ft_lstsize_d_lst(*stack_b));
-	half = ft_lstsize_d_lst(*stack_b) / 2;
 	ft_big_quarter_to_a(stack_a, stack_b, sort_8, half);
 	ft_sortb_section(stack_a, stack_b, sort_8);
 
@@ -40,7 +39,7 @@ void ft_sort_stack8(d_list **stack_a, d_list **stack_b, s_sort *sort_8)
 	while (*((*stack_a)->content) != 0)
 		ft_update_sort_score(sort_8, "4", stack_a, stack_b);
 	ft_sortb_section(stack_a, stack_b, sort_8);
-	//ft_print_linked_list(*stack_a);
+	//ft_printf("%i\n", ft_list_sorted(*stack_a));
 }
 // (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
 void ft_radix_sort(d_list **stack_a, d_list **stack_b, s_sort *sort_p)
