@@ -75,7 +75,7 @@ void ft_sortb_section(d_list **stack_a, d_list **stack_b, s_sort *sort_o);
 void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7);
 void ft_sort_stack9(d_list **stack_a, d_list **stack_b, s_sort *sort_9);
 void ft_sort_stack10(d_list **stack_a, d_list **stack_b, s_sort *sort_10);
-void ft_free_split(char **mem);
+int ft_free_split(char **mem);
 int ft_compare_algorithm_scores(s_sort **sort_scores, int test);
 void ft_test_algorithm(s_sort *sort_s, d_list **stack_a, void (*f)(d_list**, d_list**, s_sort*));
 void ft_free_sort_scores(s_sort **sort_scores);

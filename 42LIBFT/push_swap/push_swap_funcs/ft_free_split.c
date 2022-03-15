@@ -3,7 +3,7 @@
 #include "../../ft_printf/ft_printf.h"
 
 // free split argv[1] strings
-void ft_free_split(char **mem)
+int ft_free_split(char **mem)
 {
 	int i;
 
@@ -11,4 +11,5 @@ void ft_free_split(char **mem)
 	while (mem[++i])
 		free(mem[i]);
 	free(mem);
+	return (0);
 }
