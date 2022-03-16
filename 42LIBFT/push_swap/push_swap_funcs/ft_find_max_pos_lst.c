@@ -2,7 +2,7 @@
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-int ft_find_max_pos_lst(d_list *stack)
+int ft_find_max_pos_lst(t_dlst *stack)
 {
 	int i;
 	int j;

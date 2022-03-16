@@ -3,7 +3,7 @@
 #include "../../ft_printf/ft_printf.h"
 
 // function to find position of the minimum number of the stack
-int ft_find_min_pos_lst(d_list *stack)
+int ft_find_min_pos_lst(t_dlst *stack)
 {
 	int i;
 	int j;

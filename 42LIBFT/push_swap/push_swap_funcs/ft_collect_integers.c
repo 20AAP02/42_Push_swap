@@ -3,13 +3,13 @@
 #include "../../ft_printf/ft_printf.h"
 
 // function to collect the parameters of the stack_a
-d_list **ft_collect_integers(int argc, char **argv, int k)
+t_dlst **ft_collect_integers(int argc, char **argv, int k)
 {
-	d_list **stack_a;
+	t_dlst **stack_a;
 	int *value;
 	int i;
 
-	stack_a = malloc(sizeof(d_list*));
+	stack_a = malloc(sizeof(t_dlst*));
 	*stack_a = NULL;
 	i = k;
 	while ((k == 1 && i < argc) || (k == 0 && argv[i]))

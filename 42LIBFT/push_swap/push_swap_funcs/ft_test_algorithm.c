@@ -3,12 +3,12 @@
 #include "../../ft_printf/ft_printf.h"
 
 // function to test algorithms whithout having to create a stack for each algorithm
-void ft_test_algorithm(s_sort *sort_s, d_list **stack_a, void (*f)(d_list**, d_list**, s_sort*))
+void ft_test_algorithm(t_sort *sort_s, t_dlst **stack_a, void (*f)(t_dlst**, t_dlst**, t_sort*))
 {
-	d_list **stack_a_cpy;
-	d_list **stack_b_cpy;
+	t_dlst **stack_a_cpy;
+	t_dlst **stack_b_cpy;
 
-	stack_b_cpy = malloc(sizeof(d_list*));
+	stack_b_cpy = malloc(sizeof(t_dlst*));
 	*stack_b_cpy = NULL;
 
 	stack_a_cpy = NULL;

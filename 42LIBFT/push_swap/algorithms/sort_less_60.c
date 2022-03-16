@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_less_60.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 16:29:14 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 16:29:42 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-// sorting algrithm for lists of 50 numbers (function that devides the list in 2)
-void ft_sort_stack7(d_list **stack_a, d_list **stack_b, s_sort *sort_7)
+void	ft_sort_stack7(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_7)
 {
-	int half;
+	int	half;
 
 	ft_make_range(stack_a, stack_b);
 	half = ft_lstsize_d_lst(*stack_a) / 2;

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ra.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 16:40:47 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 16:40:50 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-void ft_ra(d_list **stack)
+void	ft_ra(t_dlst **stack)
 {
-	d_list *mem;
-	int value_c2;
-	int value_c1;
+	t_dlst	*mem;
+	int		value_c2;
+	int		value_c1;
 
 	if (ft_lstsize_d_lst(*stack) < 2)
 		return ;

@@ -45,7 +45,8 @@ PUSH_SWAP	= push_swap/algorithms/sort_less_3.c push_swap/algorithms/sort_less_5.
 					push_swap/push_swap_funcs/ft_print_linked_list.c push_swap/push_swap_funcs/ft_print_move.c \
 					push_swap/push_swap_funcs/ft_small_half_to_b.c push_swap/push_swap_funcs/ft_small_quarter_to_b.c \
 					push_swap/push_swap_funcs/ft_sortb_section.c push_swap/push_swap_funcs/ft_test_algorithm.c \
-					push_swap/push_swap_funcs/ft_update_sort_score.c push_swap/push_swap_funcs/ft_str_arr_size.c
+					push_swap/push_swap_funcs/ft_update_sort_score.c push_swap/push_swap_funcs/ft_str_arr_size.c \
+					push_swap/algorithms/sort_500_funcs/part1.c push_swap/algorithms/sort_500_funcs/part2.c
 PUSH_SWAP_OBJ	= $(PUSH_SWAP:.c=.o)
 
 all:	$(NAME) clean

@@ -6,7 +6,7 @@
 /*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:55:44 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/15 17:55:54 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:51:20 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf/ft_printf.h"
 // gcc push_swap.c libft.a && arg=$(python3 ../rando.py 300); 
 //./a.out $arg | ./checker_Mac $arg && ./a.out $arg | wc -l
-void	ft_block_1(s_sort **sort_scores, d_list **stack_a, int x, char *str)
+void	ft_block_1(t_sort **sort_scores, t_dlst **stack_a, int x, char *str)
 {
 	if (!ft_list_sorted(*stack_a))
 	{
@@ -40,26 +40,26 @@ void	ft_block_1(s_sort **sort_scores, d_list **stack_a, int x, char *str)
 			ft_print_move(sort_scores[0]->moves_str[x++]);
 }
 
-void	ft_block_2(int argc, char **argv, d_list **stack_a, char **mem)
+void	ft_block_2(int argc, char **argv, t_dlst **stack_a, char **mem)
 {
 	if (ft_check_parameters(argc, argv, 0) == 5)
 		ft_free_split(mem);
 	ft_lstclear_d_lst(stack_a);
 }
 
-void	ft_block_3(s_sort **sort_scores)
+void	ft_block_3(t_sort **sort_scores)
 {
 	sort_scores[1] = NULL;
-	sort_scores[0] = malloc(sizeof(s_sort));
+	sort_scores[0] = malloc(sizeof(t_sort));
 	(sort_scores[0])->n_moves = 0;
 	(sort_scores[0])->moves_str = NULL;
 }
 
 int	main(int argc, char **argv)
 {
-	s_sort	**sort_scores;
+	t_sort	**sort_scores;
 	int		x;
-	d_list	**stack_a;
+	t_dlst	**stack_a;
 	char	**mem;
 
 	if (ft_check_parameters(argc, argv, 0))
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 		stack_a = ft_collect_integers(argc, mem, 0);
 	else
 		stack_a = ft_collect_integers(argc, argv, 1);
-	sort_scores = malloc(sizeof(s_sort *) * 2);
+	sort_scores = malloc(sizeof(t_sort *) * 2);
 	ft_block_3(sort_scores);
 	ft_block_1(sort_scores, stack_a, 0, "");
 	ft_block_2(argc, argv, stack_a, mem);

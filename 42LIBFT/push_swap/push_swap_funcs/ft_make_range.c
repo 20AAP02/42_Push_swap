@@ -3,10 +3,10 @@
 #include "../../ft_printf/ft_printf.h"
 
 // simplify list of ints to [0, N]
-void ft_make_range(d_list **stack_a, d_list **stack_b)
+void ft_make_range(t_dlst **stack_a, t_dlst **stack_b)
 {
-	d_list **stack_a_cpy;
-	d_list *mem;
+	t_dlst **stack_a_cpy;
+	t_dlst *mem;
 	int n;
 	int i;
 

@@ -2,7 +2,7 @@
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-void ft_sortb_section(d_list **stack_a, d_list **stack_b, s_sort *sort_o)
+void ft_sortb_section(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_o)
 {
 	int step;
 	int min;

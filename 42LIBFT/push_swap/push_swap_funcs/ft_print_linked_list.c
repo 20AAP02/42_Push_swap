@@ -3,7 +3,7 @@
 #include "../../ft_printf/ft_printf.h"
 
 // function to print linked list (uses printf)
-void ft_print_linked_list(d_list *stack_a)
+void ft_print_linked_list(t_dlst *stack_a)
 {
 	while (stack_a)
 	{

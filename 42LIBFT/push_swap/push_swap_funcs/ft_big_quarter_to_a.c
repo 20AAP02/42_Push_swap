@@ -2,7 +2,7 @@
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-void ft_big_quarter_to_a(d_list **stack_a, d_list **stack_b, s_sort *sort_p, int value)
+void ft_big_quarter_to_a(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value)
 {
 	int check;
 

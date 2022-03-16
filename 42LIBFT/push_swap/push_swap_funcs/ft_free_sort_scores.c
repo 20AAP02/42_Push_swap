@@ -2,9 +2,9 @@
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-void ft_free_sort_scores(s_sort **sort_scores)
+void ft_free_sort_scores(t_sort **sort_scores)
 {
-	s_sort **ex;
+	t_sort **ex;
 
 	ex = sort_scores;
 	while (*sort_scores)

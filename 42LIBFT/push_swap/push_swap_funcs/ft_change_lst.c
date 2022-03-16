@@ -3,7 +3,7 @@
 #include "../../ft_printf/ft_printf.h"
 
 // function to apply move to stacks (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
-void ft_change_lst(char move, d_list **stack_a, d_list **stack_b)
+void ft_change_lst(char move, t_dlst **stack_a, t_dlst **stack_b)
 {
 	if (move == '1')
 		ft_sa(*stack_a);

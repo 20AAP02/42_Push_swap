@@ -3,12 +3,12 @@
 #include "../../ft_printf/ft_printf.h"
 
 // Make a copy of a linked list
-d_list **ft_make_lst_cpy(d_list **stack_a_cpy, d_list *stack_a_orig)
+t_dlst **ft_make_lst_cpy(t_dlst **stack_a_cpy, t_dlst *stack_a_orig)
 {
 	int *value;
 
 	// Creating stack_a & stack_b copies
-	stack_a_cpy = malloc(sizeof(d_list*));
+	stack_a_cpy = malloc(sizeof(t_dlst*));
 	*stack_a_cpy = NULL;
 
 	while (stack_a_orig)
