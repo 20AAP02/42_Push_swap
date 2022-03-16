@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:55:44 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 14:51:20 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:54:17 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "42_libft/libft.h"
 #include "push_swap/push_swap.h"
 #include "ft_printf/ft_printf.h"
-// gcc push_swap.c libft.a && arg=$(python3 ../rando.py 300); 
+// gcc push_swap.c libft.a && arg=$(python3 ../rando.py 300);
 //./a.out $arg | ./checker_Mac $arg && ./a.out $arg | wc -l
 void	ft_block_1(t_sort **sort_scores, t_dlst **stack_a, int x, char *str)
 {
 	if (!ft_list_sorted(*stack_a))
 	{
 		if (ft_lstsize_d_lst(*stack_a) <= 3)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less3);
+			ft_k(sort_scores[0], stack_a, ft_sort_stack_less3);
 		else if (ft_lstsize_d_lst(*stack_a) < 40)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack_less5);
+			ft_k(sort_scores[0], stack_a, ft_sort_stack_less5);
 		else if (ft_lstsize_d_lst(*stack_a) <= 60)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack7);
+			ft_k(sort_scores[0], stack_a, ft_sort_stack7);
 		else if (ft_lstsize_d_lst(*stack_a) <= 100)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack8);
+			ft_k(sort_scores[0], stack_a, ft_sort_stack8);
 		else if (ft_lstsize_d_lst(*stack_a) <= 499)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_radix_sort);
+			ft_k(sort_scores[0], stack_a, ft_radix_sort);
 		else if (ft_lstsize_d_lst(*stack_a) == 500)
-			ft_test_algorithm(sort_scores[0], stack_a, ft_sort_stack10);
+			ft_k(sort_scores[0], stack_a, ft_sort_stack10);
 	}
 	str = sort_scores[0]->moves_str;
 	if (!ft_list_sorted(*stack_a) && ft_count_dmoves(str))

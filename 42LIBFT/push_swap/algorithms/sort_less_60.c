@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_less_60.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:29:14 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 16:29:42 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:42:53 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_sort_stack7(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_7)
 
 	ft_make_range(stack_a, stack_b);
 	half = ft_lstsize_d_lst(*stack_a) / 2;
-	ft_small_half_to_b(stack_a, stack_b, sort_7, half);
+	ft_s(stack_a, stack_b, sort_7, half);
 	ft_sortb_section(stack_a, stack_b, sort_7);
 	while (ft_lstsize_d_lst(*stack_a) != 0)
-		ft_update_sort_score(sort_7, "4", stack_a, stack_b);
+		ft_upd_s(sort_7, "4", stack_a, stack_b);
 	ft_sortb_section(stack_a, stack_b, sort_7);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 14:31:27 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 16:18:59 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:01:38 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ t_dlst	**ft_make_lst_cpy(t_dlst **stack_a_cpy, t_dlst *stack_a_orig);
 void	ft_change_lst(char move, t_dlst **stack_a, t_dlst **stack_b);
 void	ft_print_linked_list(t_dlst *stack_a);
 void	ft_sort_stack0(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_0);
-int		ft_find_min_pos_lst(t_dlst *stack);
-void	ft_update_sort_score(t_sort *sort_s, char *move, t_dlst **stack_a, t_dlst **stack_b);
+int		ft_mp_lst(t_dlst *stack);
+void	ft_upd_s(t_sort *sort_s, char *move, t_dlst **stack_a, t_dlst **stack_b);
 void	ft_sort_stack_less3(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_1);
 void	ft_sort_stack_less5(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_2);
 void	ft_sort_stack8(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_8);
@@ -94,14 +94,14 @@ void	ft_sort_stack9(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_9);
 void	ft_sort_stack10(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_);
 int		ft_free_split(char **mem);
 int		ft_compare_algorithm_scores(t_sort **sort_scores, int test);
-void	ft_test_algorithm(t_sort *sort_s, t_dlst **stack_a, void (*f)(t_dlst**, t_dlst**, t_sort*));
+void	ft_k(t_sort *sort_s, t_dlst **sta, void (*f)(t_dlst**, t_dlst**, t_sort*));
 void	ft_free_sort_scores(t_sort **sort_scores);
 void	ft_print_move(char a);
 int		ft_count_dmoves(char *str);
 char	*ft_edit_movestr(int times, char *str);
-void	ft_small_half_to_b(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
-void	ft_small_quarter_to_b(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
-void	ft_big_quarter_to_a(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
+void	ft_s(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
+void	ft_sqb(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
+void	ft_bq(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p, int value);
 void	ft_radix_sort(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_p);
 t_500	ft_block1(t_500 ex, t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_);
 t_500	ft_block2(t_500 ex, t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_);

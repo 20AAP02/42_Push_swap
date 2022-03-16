@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_less_500.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:08:11 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 16:28:38 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:42:53 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ t_500	ft_block11(t_500 ex, t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_)
 		if ((ex.half / 2) + 1 < ex.i)
 			break ;
 		if (*((*stack_b)->content) >= ((ex.half * 3) + (ex.half / 4)))
-			ft_update_sort_score(sort_, "3", stack_a, stack_b);
+			ft_upd_s(sort_, "3", stack_a, stack_b);
 		else
-			ft_update_sort_score(sort_, "6", stack_a, stack_b);
+			ft_upd_s(sort_, "6", stack_a, stack_b);
 		ex.i++;
 	}
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_);
 	while (*((*stack_a)->content) < ((ex.half * 3) + (ex.half / 2)))
-		ft_update_sort_score(sort_, "4", stack_a, stack_b);
+		ft_upd_s(sort_, "4", stack_a, stack_b);
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_);
 	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_, "4", stack_a, stack_b);
+		ft_upd_s(sort_, "4", stack_a, stack_b);
 	return (ex);
 }
 
@@ -48,15 +48,15 @@ t_500	ft_block12(t_500 ex, t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_)
 			break ;
 		j = ((ex.half * 3) + (ex.half / 2) + (ex.half / 4));
 		if (*((*stack_b)->content) >= j)
-			ft_update_sort_score(sort_, "3", stack_a, stack_b);
+			ft_upd_s(sort_, "3", stack_a, stack_b);
 		else
-			ft_update_sort_score(sort_, "6", stack_a, stack_b);
+			ft_upd_s(sort_, "6", stack_a, stack_b);
 		ex.i++;
 	}
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_);
 	while (*((*stack_a)->content) != 0)
-		ft_update_sort_score(sort_, "4", stack_a, stack_b);
+		ft_upd_s(sort_, "4", stack_a, stack_b);
 	if (ft_lstsize_d_lst(*stack_b))
 		ft_sortb_section(stack_a, stack_b, sort_);
 	return (ex);

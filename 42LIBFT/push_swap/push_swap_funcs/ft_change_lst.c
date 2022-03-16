@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_change_lst.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 20:01:08 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 20:02:21 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-// function to apply move to stacks (1-sa, 2-sb, 3-pa, 4-pb, 5-ra, 6-rb, 7-rra, 8-rrb)
-void ft_change_lst(char move, t_dlst **stack_a, t_dlst **stack_b)
+void	ft_change_lst(char move, t_dlst **stack_a, t_dlst **stack_b)
 {
 	if (move == '1')
 		ft_sa(*stack_a);

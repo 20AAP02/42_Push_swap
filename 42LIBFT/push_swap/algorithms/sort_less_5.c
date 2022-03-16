@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_less_5.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amaria-m <amaria-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 15:07:32 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 15:07:49 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:42:53 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	ft_sort_stack_less5(t_dlst **stack_a, t_dlst **stack_b, t_sort *sort_2)
 		return ;
 	while (ft_lstsize_d_lst(*stack_a) > 3)
 	{
-		pos = ft_find_min_pos_lst(*stack_a);
+		pos = ft_mp_lst(*stack_a);
 		if (pos <= (ft_lstsize_d_lst(*stack_a) / 2))
-			while (ft_find_min_pos_lst(*stack_a) != 0)
-				ft_update_sort_score(sort_2, "5", stack_a, stack_a);
+			while (ft_mp_lst(*stack_a) != 0)
+				ft_upd_s(sort_2, "5", stack_a, stack_a);
 		else
-			while (ft_find_min_pos_lst(*stack_a) != 0)
-				ft_update_sort_score(sort_2, "7", stack_a, stack_a);
-		ft_update_sort_score(sort_2, "4", stack_a, stack_b);
+			while (ft_mp_lst(*stack_a) != 0)
+				ft_upd_s(sort_2, "7", stack_a, stack_a);
+		ft_upd_s(sort_2, "4", stack_a, stack_b);
 	}
 	ft_sort_stack_less3(stack_a, stack_b, sort_2);
 	while (ft_lstsize_d_lst(*stack_b))
-		ft_update_sort_score(sort_2, "3", stack_a, stack_b);
+		ft_upd_s(sort_2, "3", stack_a, stack_b);
 }

@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_upd_s.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 20:07:46 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 20:40:35 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-// function to update sort score
-void ft_update_sort_score(t_sort *sort_s, char *move, t_dlst **stack_a, t_dlst **stack_b)
+void	ft_upd_s(t_sort *sort_s, char *move, t_dlst **stack_a, t_dlst **stack_b)
 {
-	char *mem;
+	char	*mem;
 
 	if (!(sort_s->moves_str))
 		sort_s->moves_str = ft_strjoin(move, "");

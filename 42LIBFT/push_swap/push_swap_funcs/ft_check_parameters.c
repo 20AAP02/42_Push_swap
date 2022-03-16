@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_parameters.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 20:01:17 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 20:48:23 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-// Function to check if parameters have no errors (too many lines)
-int ft_check_parameters(int argc, char **argv, int k)
+int	ft_check_parameters(int argc, char **argv, int k)
 {
-	double *arr;
-	int i;
-	int j;
+	double	*arr;
+	int		i;
+	int		j;
 
 	if (k)
 		argc = ft_str_arr_size(argv);
@@ -17,11 +28,12 @@ int ft_check_parameters(int argc, char **argv, int k)
 	while (++i < argc)
 	{
 		j = -1;
-		while(argv[i][++j])
-			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != '-' && argv[i][j] != ' ')
-				return (1);
+		while (argv[i][++j])
+			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != '-')
+				if (argv[i][j] != ' ')
+					return (1);
 		j = -1;
-		while(argv[i][++j])
+		while (argv[i][++j])
 		{
 			if (argv[i][j] == ' ')
 				return (5);

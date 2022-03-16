@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calc_fastest_number.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/16 20:00:36 by amaria-m          #+#    #+#             */
+/*   Updated: 2022/03/16 20:00:48 by amaria-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../42_libft/libft.h"
 #include "../push_swap.h"
 #include "../../ft_printf/ft_printf.h"
 
-int ft_calc_fastest_number(t_dlst **stack_b, int min, int max)
+int	ft_calc_fastest_number(t_dlst **stack_b, int min, int max)
 {
-	int *arr;
-	int i;
-	int fast;
+	int	*arr;
+	int	i;
+	int	fast;
 
 	arr = malloc(sizeof(int) * 4);
 	arr[0] = 0 + max;
