@@ -6,7 +6,7 @@
 /*   By: amaria-m <amaria-m@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 17:55:44 by amaria-m          #+#    #+#             */
-/*   Updated: 2022/03/16 20:54:17 by amaria-m         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:55:04 by amaria-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_block_1(t_sort **sort_scores, t_dlst **stack_a, int x, char *str)
 			ft_k(sort_scores[0], stack_a, ft_radix_sort);
 		else if (ft_lstsize_d_lst(*stack_a) == 500)
 			ft_k(sort_scores[0], stack_a, ft_sort_stack10);
+		else if (ft_lstsize_d_lst(*stack_a) > 500)
+			ft_k(sort_scores[0], stack_a, ft_radix_sort);
 	}
 	str = sort_scores[0]->moves_str;
 	if (!ft_list_sorted(*stack_a) && ft_count_dmoves(str))

@@ -1,0 +1,3 @@
+gcc push_swap.c libft.a && arg=$(python3 ../rando.py 100); ./a.out $arg | ./checker_linux $arg && ./a.out $arg | wc -l
+gcc push_swap.c libft.a && arg=$(python3 ../rando.py 1); valgrind ./a.out 1 2. 4 (nao da erro)
+gcc push_swap.c libft.a && arg=$(python3 ../rando.py 1); valgrind ./a.out 8 2-4
