@@ -29,7 +29,7 @@ https://github.com/20AAP02/push_swap/blob/main/en.subject.pdf
 numbers in Stack A and sort them so that Stack A is organized from smallest to largest. There are only a few moves we’re allowed to used to 
 manipulate the stacks. The main goal of this project is to organize Stack A in as few moves as possible.</p>
 
-<p>The moves that we can use are the following:</p>  
+<b>The moves that we can use are the following:</b>  
 - sa (swap a): Swap the first 2 elements at the top of stack a.<br> 
 - sb (swap b): Swap the first 2 elements at the top of stack b.<br> 
 - ss : sa and sb at the same time.<br> 
@@ -41,3 +41,6 @@ manipulate the stacks. The main goal of this project is to organize Stack A in a
 - rra (reverse rotate a): Shift down all elements of stack a by 1.<br> 
 - rrb (reverse rotate b): Shift down all elements of stack b by 1.<br> 
 - rrr : rra and rrb at the same time.<br> 
+
+<b>Algorithm Implementation</b>
+<p>So now that we have the actions we are allowed to use, how should we use them? The algorithms we’ll use depends on how many random numbers are getting applied to Stack A. There are 4 main test cases that I want to cover. The cases are 3, 5, 100, and 500. Each case requires me to handle them differently, so I’ll break down how I optimized each case one at a time.</p>
