@@ -43,4 +43,6 @@ manipulate the stacks. The main goal of this project is to organize Stack A in a
 - rrr : rra and rrb at the same time.<br><br>
 
 <b>Algorithm Implementation</b>
-<p>So now that we have the actions we are allowed to use, how should we use them? The algorithms we’ll use depends on how many random numbers are getting applied to Stack A. There are 4 main test cases that I want to cover. The cases are 3, 5, 100, and 500. Each case requires me to handle them differently, so I’ll break down how I optimized each case one at a time.</p>
+<p>So now that we have the moves we are allowed to use, how should we use them? The algorithms I used depends on how many random numbers are getting applied to Stack A. There are 4 main test cases that I want to cover. The cases are 3, 5, 100, and 500. Each case requires me to handle them differently, so I’ll break down how I optimized each case one at a time.</p>
+<i>Stack of 3 integers</i>
+
