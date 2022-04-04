@@ -61,5 +61,5 @@ proceed to make certain moves (in this case the max number of moves is 2)</p>
 &nbsp;&nbsp;&nbsp;&nbsp; 2. Then I send the biggest half of stack B, to the top of stack A;<br>
 &nbsp;&nbsp;&nbsp;&nbsp; And then I keep doing rule 2 n times<br>
 &nbsp;&nbsp;&nbsp;&nbsp; 3. I will now send the numbers in stack B to the bottom of stack A by the right order in a calculated manner (smallest number goes first to the bottom of A)<br>
-&nbsp;&nbsp;&nbsp;&nbsp; 4. I will then send to stack B, the last half that I sended back to A. If this half has the corrusponding size of an 'n' part, I will apply rule 3 again. Otherwise, if stack B is bigger than an 'n' part, I proceed to apply the rule 2.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 4. I will then send to stack B, the last half that I sended back to A. If this half has the corrusponding size of an 'n' part, I will apply rule 3 again. Otherwise, if stack B is bigger than an 'n' part, I proceed to apply the rule 2.<br><br>
 This rules will be applyed until the smallest number is at the top of stack A</p>
