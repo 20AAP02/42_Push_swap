@@ -45,9 +45,9 @@ manipulate the stacks. The main goal of this project is to organize Stack A in a
 <b>Algorithm Implementation</b>
 <p>So now that we have the moves we are allowed to use, how should we use them? The algorithms I used depends on how many random numbers are getting applied to Stack A. There are 4 main test cases that I want to cover. The cases are 3, 5, 100, and 500. Each case requires me to handle them differently, so I’ll break down how I optimized each case one at a time.</p>
 <p>This ocurres because the evaluation is made acording to those the followinf checkpoints.<br>To have the highest score, my algorithm must make<br>
-&#9;less then 3 moves when the stack has 3 integers;
-&#9;less then 8 moves, when the stack has 5 integers;
-&#9;less then 700 moves when the stack has 100 integers;
+&#9;less then 3 moves when the stack has 3 integers;<br>
+&#9;less then 8 moves, when the stack has 5 integers;<br>
+&#9;less then 700 moves when the stack has 100 integers;<br>
 &#9;less then 5500 moves when the stack has 500 integers;</p><br>
 <i>- Stack of 3 integers</i>
 <p>For a this stack size i just harcoded the most optimized moves. So depending on the position of the biggest, smallest and medium number; I will
