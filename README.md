@@ -28,3 +28,23 @@ https://github.com/20AAP02/push_swap/blob/main/en.subject.pdf
 <p>We are given two stacks called Stack A and Stack B. Stack A is given a random list of unorganized numbers. We must take the random list of 
 numbers in Stack A and sort them so that Stack A is organized from smallest to largest. There are only a few moves we’re allowed to used to 
 manipulate the stacks. The main goal of this project is to organize Stack A in as few moves as possible.</p>
+
+<p>The moves that we can use are the following:</p>  
+-sa (swap a): Swap the first 2 elements at the top of stack a.  
+-sb (swap b): Swap the first 2 elements at the top of stack b.
+Do nothing if there is only one or no elements.
+ss : sa and sb at the same time.
+pa (push a): Take the first element at the top of b and put it at the top of a.
+Do nothing if b is empty.
+pb (push b): Take the first element at the top of a and put it at the top of b.
+Do nothing if a is empty.
+ra (rotate a): Shift up all elements of stack a by 1.
+The first element becomes the last one.
+rb (rotate b): Shift up all elements of stack b by 1.
+The first element becomes the last one.
+rr : ra and rb at the same time.
+rra (reverse rotate a): Shift down all elements of stack a by 1.
+The last element becomes the first one.
+rrb (reverse rotate b): Shift down all elements of stack b by 1.
+The last element becomes the first one.
+rrr : rra and rrb at the same time.
