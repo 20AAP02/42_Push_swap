@@ -49,10 +49,10 @@ manipulate the stacks. The main goal of this project is to organize Stack A in a
 &nbsp;&nbsp;&nbsp;&nbsp;Less then 8 moves, when the stack has 5 integers;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Less then 700 moves when the stack has 100 integers;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Less then 5500 moves when the stack has 500 integers;</p><br>
-<i>- Stack of 3 integers</i>
+<i>- Stack of 3 integers:</i>
 <p>For a this stack size i just harcoded the most optimized moves. So depending on the position of the biggest, smallest and medium number; I will
 proceed to make certain moves (in this case the max number of moves is 2)</p>
-<i>- Stack of 5 integers</i>
+<i>- Stack of 5 integers:</i>
 <p>When stack A starts with 4 integers, or as long as the size is less than 60 I will apply the same algorithm. Which goes like this. I keep pushing the smallest number in stack A to stack b, until stack A has only 3 numbers. Then I apply the past sorting algorithm to stack A. And now, since the numbers in stack B are ordered from biggest to smallest, top to bottom; I only have to push one by one to stack A</p>
 <b>- Stack of 100 & 500 integers</b>
 <p>Now the following algorithm were only applyed to the respective stack sizes because of issues of implementation (i didn't corrected them further because I found a quicker way to solve the problem).</p>
@@ -65,7 +65,7 @@ proceed to make certain moves (in this case the max number of moves is 2)</p>
 This rules will be applyed until the smallest number is at the top of stack A</p>
 
 
-<i>Stack of 100 integers</i>
+<i>Stack of 100 integers:</i>
 <p>For this size I will apply the algorithm that I just explained by dividing the list in 4 parts</p>
-<i>Stack of 500 integers</i>
+<i>Stack of 500 integers:</i>
 <p>For this size I will divide the list in 16 parts</p>
