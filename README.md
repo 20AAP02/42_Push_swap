@@ -15,7 +15,7 @@ received as arguments.</p>
 -----
 
 <h4>Subject</h4>
-https://github.com/20AAP02/get_next_line/blob/master/en.subject.pdf
+https://github.com/20AAP02/push_swap/blob/main/en.subject.pdf
 
 -----
 
