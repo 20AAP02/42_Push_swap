@@ -69,3 +69,8 @@ This rules will be applyed until the smallest number is at the top of stack A</p
 <p>For this size I will apply the algorithm that I just explained by dividing the list in 4 parts</p>
 <i>Stack of 500 integers:</i>
 <p>For this size I will divide the list in 16 parts</p>
+
+<b>Other Algorithms</b>
+<p>I also applyed the radix sort algorithm, when to list of numbers had between 100 and 500 integers</p>
+<p>This sorting algorithm is usually known to devide the list in 10 boxs, but since we only had acess to "2 boxes". I made took all numbers by binaries instead of decimal numbers; that way I only needed two boxes</p>
+<p>If you want to understand to radix sort algorithm better I would recommend you this article --> https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a , that explains the radixsort with both decimal and binary numbers</p>
