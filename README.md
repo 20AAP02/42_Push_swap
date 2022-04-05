@@ -33,7 +33,7 @@ cd push_swap
 cd push_swap_final
 ```
 
-<p>If you want to create push_swap executable file</p>
+<i>If you want to create push_swap executable file</i>
 
 ```
 make -s
@@ -45,7 +45,7 @@ make -s
 make libft -s
 ```
 
-<p>If you want to create library with ft_printf function</p>
+<i>If you want to create library with ft_printf function</i>
 
 ```
 make ft_printf -s
