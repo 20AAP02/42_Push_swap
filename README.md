@@ -39,7 +39,7 @@ cd push_swap_final
 make -s
 ```
 
-<b>If you want to create libft library</b>
+<i>If you want to create libft library</i>
 
 ```
 make libft -s
