@@ -23,6 +23,36 @@ https://github.com/20AAP02/push_swap/blob/main/en.subject.pdf
 <h6>Mandatory : 100/100</h6>
 <h6>Bonus : 0/25</h6>
 
+-----
+
+<h4>How to use</h4>
+
+```
+git clone https://github.com/20AAP02/42_Push_swap.git push_swap
+cd push_swap
+cd push_swap_final
+```
+
+<p>If you want to create push_swap executable file</p>
+
+```
+make -s
+```
+
+<p>If you want to create libft library</p>
+
+```
+make libft -s
+```
+
+<p>If you want to create library with ft_printf function</p>
+
+```
+make ft_printf -s
+```
+
+-----
+
 <h4>Guide</h4>
 
 <p>We are given two stacks called Stack A and Stack B. Stack A is given a random list of unorganized numbers. We must take the random list of 
